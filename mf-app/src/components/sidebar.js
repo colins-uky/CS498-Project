@@ -11,6 +11,14 @@ import styles from '@/styles/Sidebar.module.css';
 function Sidebar(props) {
 
     const computedClassName = props.showSideNav ? styles.navContainer : styles.navContainerHidden;
+    const user = props.user;
+    
+
+    if (Object.keys(user).length) {
+        // This code runs upon router.push from signUp page
+        // Fetch user data to display to sidebar
+        console.log(user);
+    }
 
     return (
         <div className={computedClassName}>

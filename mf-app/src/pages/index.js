@@ -2,10 +2,14 @@ import Head from 'next/head'
 import Topbar from '@/components/topbar'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { useRouter } from 'next/router'
 
 
+export default function Home(props) {
+  
+  const router = useRouter();
+  const user = router.query;
 
-export default function Home() {
   return (
     <>
       <Head>
@@ -16,9 +20,13 @@ export default function Home() {
       </Head>
       <main className={styles.homeMain}>
 
-        <Topbar/>
+        <Topbar
+          user={user}
+        />
 
       </main>
     </>
   )
 }
+
+

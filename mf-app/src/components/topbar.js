@@ -90,6 +90,7 @@ export default function Topbar(props) {
 
                 <Sidebar
                     showSideNav={showSideNav}
+                    user={props.user}
                 />
             </div>
     );

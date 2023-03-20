@@ -35,6 +35,7 @@ function SignUp() {
     async function handleSubmit(event) {
       event.preventDefault();
 
+      /*
       console.log({
           firstName: firstNameRef.current.value,
           lastName: lastNameRef.current.value,
@@ -47,7 +48,7 @@ function SignUp() {
           accountType: accountTypeRef.current.value
 
       });
-      
+      */
 
       const firstName = firstNameRef.current.value;
       const lastName = lastNameRef.current.value;
@@ -55,31 +56,37 @@ function SignUp() {
       const email = emailRef.current.value;
       const password = passwordRef.current.value;
       const confirmPassword = confirmPasswordRef.current.value;
-      const phoneNum = phoneNum.current.value;
+      const phoneNum = phoneRef.current.value;
       const DOB = dobRef.current.value;
       const accountType = accountTypeRef.current.value;
 
-      /* Uncomment to use Supabase DB
-
+      
+      
       let { data, error } = await supabase.auth.signUp({
         email: email,
         password: password
       });
 
+
+      //Sign up failed... push to failed sign up page/popup
       if (error) {
         console.error('Error creating account: ', error.message);
+
+        router.push({
+          pathname: '/',
+          state: data.user
+        });
+
         return;
       }
-      console.log(data);
 
-      */
 
       // Account creation successful
       // Add user to Users Table here with unverified account, 
       // change to verified once they verify email
 
-
-      const { data, error } = await supabase
+      
+      const { data2, error2 } = await supabase
         .from('Users')
         .insert([
           { email: email, 
@@ -92,12 +99,15 @@ function SignUp() {
             account_status: "unverified" },
       ])
 
+      if (error2) {
+        console.error('Error inserting data into DB: ', error2.message);
+      }
 
 
-
-      router.push("/");
-
-
+      router.push({
+          pathname: '/',
+          query: data.user
+      }, '/');
     }
 
     function togglePasswordVisibility() {
