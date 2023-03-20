@@ -225,6 +225,7 @@ function SignUp() {
                 id="username" 
                 ref={phoneRef}
                 placeholder="(808)-080-8080"
+                pattern="^\d{10}$"
                 />
 
             </div>
