@@ -25,10 +25,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 
 
-export default function Topbar(props) {
+
+export default function Topbar() {
+    const user = useUser();
     // Initialize useStates
     const [showSideNav, setShowSideNav] = useState(false)
     const [isMobile, setIsMobile] = useState(false);
@@ -45,6 +48,10 @@ export default function Topbar(props) {
         return () => window.removeEventListener('resize', handleResize)
 
     }, []);
+
+    useEffect(() => {
+        console.log(user);
+    })
 
 
 
@@ -90,7 +97,7 @@ export default function Topbar(props) {
 
                 <Sidebar
                     showSideNav={showSideNav}
-                    user={props.user}
+                    
                 />
             </div>
     );

@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router'
 
-
 export default function Home(props) {
   
   const router = useRouter();

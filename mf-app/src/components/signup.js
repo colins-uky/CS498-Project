@@ -3,6 +3,7 @@ import { FaEye } from "react-icons/fa";
 import { useRef, useState, useEffect } from "react";
 import Link from 'next/link';
 import { supabase } from './../lib/supabaseClient';
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from 'next/router';
 
 
@@ -61,7 +62,7 @@ function SignUp() {
       const accountType = accountTypeRef.current.value;
 
       
-      
+      // Create new Auth account with supabase
       let { data, error } = await supabase.auth.signUp({
         email: email,
         password: password
@@ -71,13 +72,11 @@ function SignUp() {
       //Sign up failed... push to failed sign up page/popup
       if (error) {
         console.error('Error creating account: ', error.message);
+        
 
-        router.push({
+        await router.push({
           pathname: '/',
-          state: data.user
         });
-
-        return;
       }
 
 
@@ -106,8 +105,7 @@ function SignUp() {
 
       router.push({
           pathname: '/',
-          query: data.user
-      }, '/');
+      });
     }
 
     function togglePasswordVisibility() {
