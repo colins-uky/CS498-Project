@@ -31,7 +31,13 @@ function SignUp() {
 
     const [showPassword, setShowPassword] = useState(false);
 
-
+    async function handleChange(event) {
+      console.log(event)
+      event.setCustomValidity(event.target.validity.patternMismatch ? 'Must have at least 6 characters' : '');
+      if (event.checkValidity()) {
+        form.confirmPassword.pattern = event.target.value;
+      }
+    }
 
     async function handleSubmit(event) {
       event.preventDefault();
@@ -197,6 +203,8 @@ function SignUp() {
                   id="password" ref={passwordRef}
                   required
                   placeholder="Password"
+                  pattern="^\S{6,}$"
+                  onInvalid={e => e.target.setCustomValidity('Your custom message')}
                   />
                 <i onClick={togglePasswordVisibility} ><FaEye size={25}/></i>
               </div>
@@ -209,6 +217,7 @@ function SignUp() {
                   id="confirm-password" ref={confirmPasswordRef}
                   required
                   placeholder="Confirm Password"
+                  
                   />
                 <i onClick={togglePasswordVisibility} ><FaEye size={25}/></i>
               </div>
