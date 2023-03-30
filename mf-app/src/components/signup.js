@@ -3,9 +3,9 @@ import { FaEye } from "react-icons/fa";
 import { useRef, useState, useEffect } from "react";
 import Link from 'next/link';
 import { supabase } from './../lib/supabaseClient';
-import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from 'next/router';
-
+import { Auth } from "@supabase/auth-ui-react"
 
 
 import styles from '@/styles/SignUp.module.css';
@@ -25,7 +25,7 @@ function SignUp() {
     const accountTypeRef = useRef();
 
 
-
+    const supabaseClient = useSupabaseClient();
     
     const router = useRouter();
 
@@ -67,7 +67,7 @@ function SignUp() {
       const DOB = dobRef.current.value;
       const accountType = accountTypeRef.current.value;
 
-      
+      /*
       // Create new Auth account with supabase
       let { data, error } = await supabase.auth.signUp({
         email: email,
@@ -85,7 +85,7 @@ function SignUp() {
         });
       }
 
-
+      */
       // Account creation successful
       // Add user to Users Table here with unverified account, 
       // change to verified once they verify email
@@ -119,7 +119,14 @@ function SignUp() {
     }
 
     return (
+
+
+
+
+
+      
       <div className={styles.loginContainer}>
+
         <div className={styles.signUpPanel}>
 
           <div className={styles.titleContainer}>

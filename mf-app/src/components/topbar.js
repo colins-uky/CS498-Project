@@ -30,7 +30,10 @@ import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 
 
+
+
 export default function Topbar() {
+    const supabase = useSupabaseClient();
     const user = useUser();
     // Initialize useStates
     const [showSideNav, setShowSideNav] = useState(false)
@@ -61,37 +64,39 @@ export default function Topbar() {
         setShowSideNav(!showSideNav);
     }
 
-    // Component HTML
-    return (
+    
+
+    if (!user) { // NEW USER PAGE
+        return (
             <div className='Navbar'>
                 <Navbar className={styles.navContainer} bg="mainColor" variant="dark" expand="md" fixed="top">
 
 
-                        <div className={styles.logo} onClick={() => {router.push('/')}} >
-                            <Image src={logo} alt="logo" />
-                            <h3> {isMobile ? 'MF' : 'ModernFunding'} </h3>
-                        </div>
+                    <div className={styles.logo} onClick={() => {router.push('/')}} >
+                        <Image src={logo} alt="logo" />
+                        <h3> {isMobile ? 'MF' : 'ModernFunding'} </h3>
+                    </div>
 
-                        <Navbar.Toggle id="mobile-collapse-btn" aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse className={styles.middleNav} id="basic-navbar-nav">
-                        <Nav className="m-auto">
-                            <Nav.Link className={styles.navLink} href="#home">Home</Nav.Link>
-                            
-                            <Link href="/sign-up">
-                                <Button className={styles.signUpBtn} id="sign-up-btn">Sign Up</Button>
-                            </Link>
-
-                            
-                        </Nav>
+                    <Navbar.Toggle id="mobile-collapse-btn" aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse className={styles.middleNav} id="basic-navbar-nav">
+                    <Nav className="m-auto">
+                        <Nav.Link className={styles.navLink} href="#home">Home</Nav.Link>
+                        
+                        <Link href="/login">
+                            <Button className={styles.signUpBtn} id="sign-up-btn">Sign In/Up</Button>
+                        </Link>
 
                         
-                        </Navbar.Collapse>
+                    </Nav>
 
-                        <div className={styles.loginContainer}>
-                            <div className={styles.loginButton} onClick={() => handleClick()}>
-                                <Image src={login_svg} alt="logo"/>
-                            </div>
+                        
+                    </Navbar.Collapse>
+
+                    <div className={styles.loginContainer}>
+                        <div className={styles.loginButton} onClick={() => handleClick()}>
+                            <Image src={login_svg} alt="logo"/>
                         </div>
+                    </div>
                 </Navbar>
 
 
@@ -100,7 +105,52 @@ export default function Topbar() {
                     
                 />
             </div>
-    );
+        );
+    }
+    else { // USER LOGGED IN 
+        return (
+            <div className='Navbar'>
+                <Navbar className={styles.navContainer} bg="mainColor" variant="dark" expand="md" fixed="top">
+
+
+                    <div className={styles.logo} onClick={() => {router.push('/')}} >
+                        <Image src={logo} alt="logo" />
+                        <h3> {isMobile ? 'MF' : 'ModernFunding'} </h3>
+                    </div>
+
+                    <Navbar.Toggle id="mobile-collapse-btn" aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse className={styles.middleNav} id="basic-navbar-nav">
+                    <Nav className="m-auto">
+                        <Nav.Link className={styles.navLink} href="#home">Home</Nav.Link>
+                        
+                        <Link href="/">
+                            <Button className={styles.signUpBtn} id="sign-up-btn"
+                            onClick={() => supabase.auth.signOut()}
+                            >Log out</Button>
+                        </Link>
+
+                        
+                    </Nav>
+
+                        
+                    </Navbar.Collapse>
+
+                    <div className={styles.loginContainer}>
+                        <div className={styles.loginButton} onClick={() => handleClick()}>
+                            <Image src={login_svg} alt="logo"/>
+                        </div>
+                    </div>
+                </Navbar>
+
+
+                <Sidebar
+                    showSideNav={showSideNav}
+                    
+                />
+            </div>
+        );
+    }
+    
 }
 
 

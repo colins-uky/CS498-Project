@@ -1,72 +1,71 @@
-import React from "react";
-import ReactDOM from 'react-dom/client';
-
-import { FaEye } from "react-icons/fa";
-
-import { useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
 
 import styles from '@/styles/Login.module.css';
 
+
 function Login() {
-    const usernameRef = useRef();
-    const passwordRef = useRef();
-
     const router = useRouter();
+    const user = useUser();
+    const supabase = useSupabaseClient();
+  
+    useEffect(() => {
+      if (user) {
+        router.replace('/');
+      }
+    }, [user]);
 
-    const [showPassword, setShowPassword] = useState(false);
 
-    function handleSubmit(event) {
-      event.preventDefault();
+    useEffect(() => {
+        const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN' && session.user) {
+                const isReturningUser = session.user.user_metadata.isReturningUser;
 
-      console.log({
-          username: usernameRef.current.value,
-          password: passwordRef.current.value,
-      })
-    }
+                if (isReturningUser) {
+                    router.push('/') // Redirect returning users to the dashboard page
+                } 
+                else {
+                    router.push('/sign-up') // Redirect new users to the onboarding page
+                }
+            } 
 
-    function togglePasswordVisibility() {
-      setShowPassword(!showPassword);
-    }
-
-    return (
-      <div className={styles.loginContainer}>
-        <div className={styles.loginPanel}>
-          <form onSubmit={handleSubmit}>
-            <h2 className={styles.title}>Modern Funding</h2>
-            <div className={styles.inputGroup}>
-
-              <input type="text" 
-                id="username" 
-                ref={usernameRef}
-                placeholder="Example@email.com"
-                required
-                />
-
+            return () => {
+                authListener.unsubscribe()
+            }
+        })
+    });
+  
+    if (!user)
+      return (
+        <div className={styles.loginContainer}>
+            <div className={styles.loginPanel}>
+              <Auth
+                supabaseClient={supabase}
+                providers={['github']}
+                appearance={{
+                  theme: ThemeSupa,
+                  variables: {
+                    default: {
+                      colors: {
+                        brand: '#404040',
+                        brandAccent: '#52525b'
+                      }
+                    }
+                  }
+                }}
+                theme="dark"
+              />
             </div>
-
-            <div className={styles.inputGroup}>
-
-              <input 
-                type={showPassword ? 'text' : 'password'} 
-                id="password" ref={passwordRef}
-                required
-                placeholder="Password"
-                />
-              <i onClick={togglePasswordVisibility} ><FaEye size={25}/></i>
-            </div>
-            <a className={styles.forgotPassword} href="#forgot password">Forgot password?</a>
-            <button id="login" type="submit">Log In</button>
-          </form>
-
-          <div className={styles.border}/>
-
-          <p>Don't have an account?</p> 
-          <button id="new-account" type="submit" onClick={() => {router.push('/sign-up')}} >Create new account</button>
-          
         </div>
+      );
+  
+    return (
+      <div className="m-6">
       </div>
     );
-}
-
-export default Login;
+  };
+  
+  export default Login;
