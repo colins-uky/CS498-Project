@@ -92,7 +92,10 @@ export default function Topbar() {
                         
                     </Navbar.Collapse>
 
-                    <div className={styles.loginContainer}>
+                    <div className={styles.containerLeft}>
+                        
+
+
                         <div className={styles.loginButton} onClick={() => handleClick()}>
                             <Image src={login_svg} alt="logo"/>
                         </div>
@@ -135,7 +138,13 @@ export default function Topbar() {
                         
                     </Navbar.Collapse>
 
-                    <div className={styles.loginContainer}>
+                    <div className={styles.containerLeft}>
+                        <div className={styles.username}>
+                            <h2>Hello World!</h2>
+                        </div>
+
+
+
                         <div className={styles.loginButton} onClick={() => handleClick()}>
                             <Image src={login_svg} alt="logo"/>
                         </div>

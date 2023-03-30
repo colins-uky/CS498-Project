@@ -25,10 +25,10 @@ function Login() {
                 const isReturningUser = session.user.user_metadata.isReturningUser;
 
                 if (isReturningUser) {
-                    router.push('/') // Redirect returning users to the dashboard page
+                  router.push('/') // Redirect returning users to the dashboard page
                 } 
                 else {
-                    router.push('/sign-up') // Redirect new users to the onboarding page
+                  router.push('/sign-up') // Redirect new users to the onboarding page
                 }
             } 
 

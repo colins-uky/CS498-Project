@@ -2,6 +2,19 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
 
+.containerLeft {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+}
+
+.username h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: snow;
+}
 
 .signUpBtn {
     margin-left: 25px;
