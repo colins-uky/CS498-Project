@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+
 
 import styles from '@/styles/Login.module.css';
 
@@ -11,32 +12,37 @@ function Login() {
     const router = useRouter();
     const user = useUser();
     const supabase = useSupabaseClient();
-  
+
+
+    async function fetchAccountType() {
+        console.log('fetching data...');
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('account_type')
+            .eq('id', user.id)
+            .maybeSingle();
+
+        if (error) {
+            console.log(error);
+        }
+        
+        if (data.account_type) { // account type not null, they've already signed up
+            localStorage.setItem('user', JSON.stringify(user));
+            router.push('/') // Redirect returning users to the home page
+        } 
+        else {
+            router.push('/sign-up') // Redirect new users to the onboarding page
+        }
+    }
+
+
+
     useEffect(() => {
-      if (user) {
-        router.replace('/');
-      }
+
+        if (user) {
+            fetchAccountType();
+        } 
     }, [user]);
-
-
-    useEffect(() => {
-        const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_IN' && session.user) {
-                const isReturningUser = session.user.user_metadata.isReturningUser;
-
-                if (isReturningUser) {
-                  router.push('/') // Redirect returning users to the dashboard page
-                } 
-                else {
-                  router.push('/sign-up') // Redirect new users to the onboarding page
-                }
-            } 
-
-            return () => {
-                authListener.unsubscribe()
-            }
-        })
-    });
   
     if (!user)
       return (

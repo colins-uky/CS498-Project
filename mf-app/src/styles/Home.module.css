@@ -11,3 +11,13 @@
   min-height: 100vh;
   background-image: var(--graphBG);
 }
+
+.dashboardMain {
+  
+}
+
+.inboxMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

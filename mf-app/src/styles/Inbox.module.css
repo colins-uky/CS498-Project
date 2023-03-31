@@ -1,0 +1,31 @@
+.emailFormContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    max-width: 500px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.emailFormHeader {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.closeIcon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.unorderdList {
+    list-style: none;
+}
+
+.titleContainer {
+    text-align: center;
+}

@@ -14,6 +14,7 @@ import styles from '@/styles/SignUp.module.css';
 
 
 function SignUp() {
+    const user = useUser();
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const emailRef = useRef();
@@ -25,106 +26,56 @@ function SignUp() {
     const accountTypeRef = useRef();
 
 
-    const supabaseClient = useSupabaseClient();
+    const supabase = useSupabaseClient();
     
     const router = useRouter();
 
-    const [showPassword, setShowPassword] = useState(false);
-
-    async function handleChange(event) {
-      console.log(event)
-      event.setCustomValidity(event.target.validity.patternMismatch ? 'Must have at least 6 characters' : '');
-      if (event.checkValidity()) {
-        form.confirmPassword.pattern = event.target.value;
-      }
-    }
-
     async function handleSubmit(event) {
-      event.preventDefault();
+        event.preventDefault();
 
-      /*
-      console.log({
-          firstName: firstNameRef.current.value,
-          lastName: lastNameRef.current.value,
-          username: usernameRef.current.value,
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-          confirmPassword: confirmPasswordRef.current.value,
-          phoneNum: phoneRef.current.value,
-          DOB: dobRef.current.value,
-          accountType: accountTypeRef.current.value
+        /*
+        console.log({
+            firstName: firstNameRef.current.value,
+            lastName: lastNameRef.current.value,
+            username: usernameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            confirmPassword: confirmPasswordRef.current.value,
+            phoneNum: phoneRef.current.value,
+            DOB: dobRef.current.value,
+            accountType: accountTypeRef.current.value
 
-      });
-      */
-
-      const firstName = firstNameRef.current.value;
-      const lastName = lastNameRef.current.value;
-      const username = usernameRef.current.value;
-      const email = emailRef.current.value;
-      const password = passwordRef.current.value;
-      const confirmPassword = confirmPasswordRef.current.value;
-      const phoneNum = phoneRef.current.value;
-      const DOB = dobRef.current.value;
-      const accountType = accountTypeRef.current.value;
-
-      /*
-      // Create new Auth account with supabase
-      let { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password
-      });
-
-
-      //Sign up failed... push to failed sign up page/popup
-      if (error) {
-        console.error('Error creating account: ', error.message);
-        
-
-        await router.push({
-          pathname: '/',
         });
-      }
-
-      */
-      // Account creation successful
-      // Add user to Users Table here with unverified account, 
-      // change to verified once they verify email
-
+        */
       
-      const { data2, error2 } = await supabase
-        .from('Users')
-        .insert([
-          { email: email, 
-            username: username,
-            first_name: firstName,
-            last_name: lastName,
-            phone_number: phoneNum,
-            dob: DOB,
-            account_type: accountType,
-            account_status: "unverified" },
-      ])
+        const { error2 } = await supabase
+            .from('profiles')
+            .upsert([
+            {
+              id: user.id,
+              username: usernameRef.current.value,
+              first_name: firstNameRef.current.value,
+              last_name: lastNameRef.current.value,
+              phone_number: phoneRef.current.value,
+              dob: dobRef.current.value,
+              account_type: accountTypeRef.current.value,
+              email: user.email
+            }
+        ])
 
-      if (error2) {
-        console.error('Error inserting data into DB: ', error2.message);
-      }
+        if (error2) {
+            console.error('Error inserting data into DB: ', error2.message);
+        }
 
-
-      router.push({
-          pathname: '/',
-      });
-    }
-
-    function togglePasswordVisibility() {
-      setShowPassword(!showPassword);
+        localStorage.setItem('user', JSON.stringify(user));
+        router.push({
+            pathname: '/',
+        });
     }
 
     return (
 
 
-
-
-
-      
       <div className={styles.loginContainer}>
 
         <div className={styles.signUpPanel}>
@@ -185,49 +136,6 @@ function SignUp() {
                 required
                 />
 
-            </div>
-
-
-            {/*            Email            */}
-            <div className={styles.inputGroup}>
-
-              <label htmlFor="email">Email*</label>
-              <input name="email"
-                type="text" 
-                id="email" 
-                ref={emailRef}
-                placeholder="example@email.com"
-                required
-                />
-
-            </div>
-            {/*            Password            */}
-            <div className={styles.doubleInput}>
-              <div className={styles.inputGroup}>
-                <label htmlFor="password">Password*</label>
-                <input name="password"
-                  type={showPassword ? 'text' : 'password'} 
-                  id="password" ref={passwordRef}
-                  required
-                  placeholder="Password"
-                  pattern="^\S{6,}$"
-                  onInvalid={e => e.target.setCustomValidity('Your custom message')}
-                  />
-                <i onClick={togglePasswordVisibility} ><FaEye size={25}/></i>
-              </div>
-
-              {/*      Confirm   Password     */}
-              <div className={styles.inputGroup} id="end">
-                <label htmlFor="confirm-password">Confirm Password*</label>
-                <input name="confirm-password"
-                  type={showPassword ? 'text' : 'password'} 
-                  id="confirm-password" ref={confirmPasswordRef}
-                  required
-                  placeholder="Confirm Password"
-                  
-                  />
-                <i onClick={togglePasswordVisibility} ><FaEye size={25}/></i>
-              </div>
             </div>
             
             {/*         Phone Number        */}

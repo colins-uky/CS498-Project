@@ -36,12 +36,17 @@ export default function Topbar() {
     const supabase = useSupabaseClient();
     const user = useUser();
     // Initialize useStates
-    const [showSideNav, setShowSideNav] = useState(false)
+    const [showSideNav, setShowSideNav] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+
+    const [userInfo, setUserInfo] = useState(null);
+
+
+
 
     const router = useRouter();
 
-    useEffect(() => {
+    useEffect(() => { // Handles smaller screen widths
         const handleResize = () => {
             setIsMobile(window.innerWidth < 960);
         };
@@ -52,16 +57,48 @@ export default function Topbar() {
 
     }, []);
 
-    useEffect(() => {
+    useEffect(() => { // Only calls getUserInfo once when user is not null
+        if (userInfo !== null || !user) {
+            return;
+        }
         console.log(user);
-    })
+        getUserInfo();
+    }, [user])
+
+    useEffect(() => {
+        if (userInfo == null) {
+            return;
+        } 
+        console.log('User Info :');
+        console.log(userInfo);
+        setPersonalizedPage(userInfo);
+    }, [userInfo])
 
 
+    async function getUserInfo() {
+        let { data, error } = await supabase
+            .from('profiles')
+            .select('*')
 
+            // Filters
+            .filter('id', 'eq', user.id)
+            .single();
+        if (error) {
+            console.log(error);
+        }
+
+        setUserInfo(data);
+    }
 
     // function to show or hide the side navbar.
     function handleClick() {
         setShowSideNav(!showSideNav);
+    }
+
+
+    function setPersonalizedPage(userInfo) {
+        
+        document.getElementById('username').innerText = userInfo.username;
     }
 
     
@@ -105,7 +142,7 @@ export default function Topbar() {
 
                 <Sidebar
                     showSideNav={showSideNav}
-                    
+                    userInfo={null}
                 />
             </div>
         );
@@ -128,7 +165,7 @@ export default function Topbar() {
                         
                         <Link href="/">
                             <Button className={styles.signUpBtn} id="sign-up-btn"
-                            onClick={() => supabase.auth.signOut()}
+                            onClick={() => {supabase.auth.signOut(); localStorage.removeItem('user');}}
                             >Log out</Button>
                         </Link>
 
@@ -140,7 +177,7 @@ export default function Topbar() {
 
                     <div className={styles.containerLeft}>
                         <div className={styles.username}>
-                            <h2>Hello World!</h2>
+                            <h2 id='username'></h2>
                         </div>
 
 
@@ -154,7 +191,7 @@ export default function Topbar() {
 
                 <Sidebar
                     showSideNav={showSideNav}
-                    
+                    userInfo={userInfo}
                 />
             </div>
         );
