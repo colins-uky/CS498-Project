@@ -8,7 +8,7 @@ export default function Home(props) {
     const router = useRouter();
     const user = router.query;
 
-
+    
     return (
         <>
         <Head>
