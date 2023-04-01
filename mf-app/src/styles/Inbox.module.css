@@ -28,4 +28,69 @@
 
 .titleContainer {
     text-align: center;
+    margin-top: 77px;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 600px;
+    padding: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup {
+    margin-bottom: 1rem;
+}
+
+.label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.input,
+.textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+}
+
+.textarea {
+    height: 10rem;
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #3e8e41;
+}
+
+.mailTableContainer {
+    width: 90%;
 }

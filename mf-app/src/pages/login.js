@@ -17,7 +17,7 @@ export default function LoginPage() {
         <Head>
           <title>Login</title>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href={logo} />
+          <link rel="icon" href='favicon.png' />
         </Head>
         <main className={styles.homeMain}>
   

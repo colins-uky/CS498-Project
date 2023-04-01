@@ -8,7 +8,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared';
 import styles from '@/styles/Dashboard.module.css';
 
 
-function DashboardTable() {
+function DashboardTable({ investments }) {
     const router = useRouter();
     const user = useUser();
     const supabase = useSupabaseClient();
@@ -23,13 +23,32 @@ function DashboardTable() {
         }
     }, [user]);
   
-    
-  
-    return (
-      <div className={styles.tableContainer}>
-        
-      </div>
-    );
-  };
+    if (investments) {
+        return (
+            <div className={styles.tableContainer}>
+                <div className="dashboard-list">
+                  {investments.map((option) => (
+                  <div key={option.id} className="options">
+                      <div className="option-amount">{option.amount}</div>
+                      <div className="email-apr">{option.apr}</div>
+                      <div className="email-description">{option.description}</div>
+                      <div className="option-loanLength">{option.loanLength}</div>
+                      <div className="email-paymentFrequency">{option.paymentFrequency}</div>
+                      <div className="email-description">{option.description}</div>
+                </div>
+              ))}
+            </div>
+            </div>
+        );
+    }
+
+    else {
+        return (
+            <div className={styles.tableContainer}>
+                <h1>Error Loading...</h1>
+            </div>
+        );
+    }
+};
   
   export default DashboardTable;

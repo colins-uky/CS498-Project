@@ -32,7 +32,7 @@ import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 
 
-export default function Topbar() {
+export default function Topbar({ pageTitle }) {
     const supabase = useSupabaseClient();
     const user = useUser();
     // Initialize useStates
@@ -41,7 +41,7 @@ export default function Topbar() {
 
     const [userInfo, setUserInfo] = useState(null);
 
-
+    
 
 
     const router = useRouter();
@@ -66,7 +66,7 @@ export default function Topbar() {
     }, [user])
 
     useEffect(() => {
-        if (userInfo == null) {
+        if (user === null || userInfo == null) {
             return;
         } 
         console.log('User Info :');
@@ -117,7 +117,8 @@ export default function Topbar() {
                     <Navbar.Toggle id="mobile-collapse-btn" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse className={styles.middleNav} id="basic-navbar-nav">
                     <Nav className="m-auto">
-                        <Nav.Link className={styles.navLink} href="#home">Home</Nav.Link>
+                        
+                        <h1 id="page-title" className={styles.pageTitle}>{pageTitle}</h1>
                         
                         <Link href="/login">
                             <Button className={styles.signUpBtn} id="sign-up-btn">Sign In/Up</Button>
@@ -161,13 +162,9 @@ export default function Topbar() {
                     <Navbar.Toggle id="mobile-collapse-btn" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse className={styles.middleNav} id="basic-navbar-nav">
                     <Nav className="m-auto">
-                        <Nav.Link className={styles.navLink} href="#home">Home</Nav.Link>
                         
-                        <Link href="/">
-                            <Button className={styles.signUpBtn} id="sign-up-btn"
-                            onClick={() => {supabase.auth.signOut(); localStorage.removeItem('user');}}
-                            >Log out</Button>
-                        </Link>
+                        
+                        <h1 id="page-title" className={styles.pageTitle}>{pageTitle}</h1>
 
                         
                     </Nav>

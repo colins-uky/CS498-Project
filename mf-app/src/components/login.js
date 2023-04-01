@@ -50,7 +50,7 @@ function Login() {
             <div className={styles.loginPanel}>
               <Auth
                 supabaseClient={supabase}
-                providers={['github']}
+                providers={[]}
                 appearance={{
                   theme: ThemeSupa,
                   variables: {

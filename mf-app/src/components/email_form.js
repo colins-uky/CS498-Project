@@ -1,46 +1,76 @@
 import { useState } from 'react';
 
+import styles from "@/styles/Inbox.module.css"
+
 function EmailForm() {
-    const [to, setTo] = useState('');
+    const [recipient, setRecipient] = useState('');
     const [subject, setSubject] = useState('');
-    const [body, setBody] = useState('');
+    const [message, setMessage] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Code to send email goes here
+        // Send email logic goes here
+        
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-        <label>
-            To:
+        <div className={styles.container}>
+
+        <h1 className={styles.title}>Compose Email</h1>
+
+        <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.inputGroup}>
+            <label htmlFor="recipient" className={styles.label}>
+                To:
+            </label>
             <input
-            type="email"
-            value={to}
-            onChange={(event) => setTo(event.target.value)}
-            required
+                type="email"
+                id="recipient"
+                className={styles.input}
+                value={recipient}
+                onChange={(event) => setRecipient(event.target.value)}
+                required
             />
-        </label>
-        <label>
-            Subject:
+            </div>
+
+            <div className={styles.inputGroup}>
+            <label htmlFor="subject" className={styles.label}>
+                Subject:
+            </label>
             <input
-            type="text"
-            value={subject}
-            onChange={(event) => setSubject(event.target.value)}
-            required
+                type="text"
+                id="subject"
+                className={styles.input}
+                value={subject}
+                onChange={(event) => setSubject(event.target.value)}
+                required
             />
-        </label>
-        <label>
-            Body:
+            </div>
+
+            <div className={styles.inputGroup}>
+            <label htmlFor="message" className={styles.label}>
+                Message:
+            </label>
             <textarea
-            value={body}
-            onChange={(event) => setBody(event.target.value)}
-            required
+                id="message"
+                className={styles.textarea}
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                required
             />
-        </label>
-        <button type="submit">Send</button>
+            </div>
+
+            <div className={styles.buttonGroup}>
+            <button type="submit" className={styles.button}>
+                Send Message
+            </button>
+            <button type="button" className={styles.button} onClick={() => {}}>
+                Cancel
+            </button>
+            </div>
         </form>
-  );
-}
+        </div>
+    );
+    };
 
 export default EmailForm;

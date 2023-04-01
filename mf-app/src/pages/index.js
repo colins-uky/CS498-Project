@@ -20,7 +20,7 @@ export default function Home(props) {
         <main className={styles.homeMain}>
 
         <Topbar
-            user={user}
+            pageTitle="Home"
         />
 
         </main>

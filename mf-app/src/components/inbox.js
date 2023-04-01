@@ -4,8 +4,12 @@ import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import React from 'react';
 import EmailForm from './email_form';
+import MailTable from './mail_table';
+import LoginModule from './login';
+import Topbar from './topbar';
 
 import styles from '@/styles/Inbox.module.css';
+
 
 
 function Inbox() {
@@ -13,6 +17,8 @@ function Inbox() {
     const user = useUser();
     const supabase = useSupabaseClient();
     const didMount = React.useRef(false);
+
+    const [userInfo, setUserInfo] = useState(null);
     
 
     const [showForm, setShowForm] = useState(false);
@@ -35,17 +41,23 @@ function Inbox() {
     }, [user])
 
 
-    // Push un-Authorized Users off the page
     useEffect(() => {
-        if (!didMount.current) {
-            didMount.current = true;
-            
-            if (user === null) {
-                //router.push('/');
-                console.log(user);
+        async function getUserInfo() {
+            let { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+    
+                // Filters
+                .filter('id', 'eq', user.id)
+                .single();
+            if (error) {
+                console.log(error);
             }
+    
+            setUserInfo(data);
         }
 
+        if (user) getUserInfo()
         console.log(user);
     }, [user]);
 
@@ -98,20 +110,36 @@ function Inbox() {
         setUserMail(data);
     }
 
-    
-  
-    if (userMail === null) {
+
+    if (!user) { // UNAUTHORIZED USER, show login panel
+        return (
+            <LoginModule/>
+        )
+    }
+    else { // USER LOGGED IN, RETURNING USER
         return (
             <div className={styles.inboxContainer}>
+
+                <Topbar
+                    pageTitle="Inbox"
+                />
+
                 <div className={styles.titleContainer}>
-                    <h1>Mail</h1>
-                    <ul className={styles.unorderdList}>
-                        <li>You have no mail! </li>
-                    </ul>
+                    
                 </div>
+    
+    
+    
+    
+                <div className={styles.mailTableContainer}>
 
-
-
+                </div>
+    
+    
+    
+    
+    
+    
                 <button onClick={handleButtonClick}>New Email</button>
                     {showForm && (
                     <div className={styles.emailFormContainer}>
@@ -123,30 +151,13 @@ function Inbox() {
                         <EmailForm />
                     </div>
                 )}
-
+    
             </div>
-
+    
         );
     }
+    
+    
+}
   
-    return (
-      <div className={styles.inboxContainer}>
-        <div>
-            <h1>Mail</h1>
-            <ul>
-                {userMail.map((email) => (
-                <li key={email.id}>
-                    <div>From: {email.sender}</div>
-                    <div>To: {email.recipient}</div>
-                    <div>Subject: {email.subject}</div>
-                    <div>Body: {email.body}</div>
-                    <div>Timestamp: {formatDate(email.timestamp)}</div>
-                </li>
-                ))}
-            </ul>
-        </div>
-      </div>
-    );
-  };
-  
-  export default Inbox;
+export default Inbox;
