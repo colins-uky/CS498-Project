@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { Finance } from 'financejs';
 
 
 import styles from '@/styles/Dashboard.module.css';
@@ -14,12 +15,17 @@ function DashboardTable({ investments }) {
     const supabase = useSupabaseClient();
 
     
+    const finance = new Finance();
+
+    let payment = finance.AM(330000, 5.27, 360, 1);
+
+    console.log(payment);
 
 
     // Push un-Authorized Users off the page
     useEffect(() => {
         if (user === null) {
-            router.push('/');
+            //router.push('/');
         }
     }, [user]);
   

@@ -7,6 +7,7 @@ import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import LoginModule from './login';
 import DashboardForm from './dashboard_form';
+import DashboardTable from './dashboard_table';
 
 import styles from "@/styles/Dashboard.module.css";
 
@@ -78,7 +79,9 @@ function DashboardModule() {
                         {showDashForm && <DashboardForm onClose={handleCloseDashForm} />}
                 </div>
 
-
+                <div className={styles.dashboardTableContainer}>
+                    <DashboardTable/>
+                </div>
             </div>
         );
     }
