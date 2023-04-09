@@ -36,8 +36,7 @@ function Inbox() {
         if (userMail !== null || !user) {
             return;
         }
-        getIncomingMessages();
-        getOutgoingMessages();
+        
     }, [user])
 
 
@@ -61,37 +60,8 @@ function Inbox() {
         console.log(user);
     }, [user]);
 
-
-    async function getIncomingMessages() {
-        let { data, error } = await supabase
-            .from('Messages')
-            .select('*')
-
-            // Filters
-            .filter('recipient_id', 'eq', user.id)
-            .single();
-        if (error) {
-            console.log(error);
-        }
-        console.log(data);
-        setUserMail(data);
-    }
-
-    async function getOutgoingMessages() {
-        let { data, error } = await supabase
-            .from('Messages')
-            .select('*')
-
-            // Filters
-            .filter('recipient_id', 'eq', user.id)
-            .single();
-        if (error) {
-            console.log(error);
-        }
-        console.log(data);
-        setUserMail(data);
-    }
-
+    /*
+    
     async function createMessage(sender_id, recipient_email, subject, message) {
         let { data, error } = await supabase
             .from('Messages')
@@ -109,6 +79,8 @@ function Inbox() {
         console.log(data);
         setUserMail(data);
     }
+
+    */
 
 
     if (!user) { // UNAUTHORIZED USER, show login panel
@@ -132,7 +104,7 @@ function Inbox() {
     
     
                 <div className={styles.mailTableContainer}>
-
+                    <MailTable/>
                 </div>
     
     
