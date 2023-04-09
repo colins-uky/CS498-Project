@@ -100,30 +100,29 @@ function Inbox() {
                     
                 </div>
     
-    
-    
-    
-                <div className={styles.mailTableContainer}>
-                    <MailTable/>
-                </div>
-    
-    
-    
-    
-    
-    
-                <button onClick={handleButtonClick}>New Email</button>
-                    {showForm && (
-                    <div className={styles.emailFormContainer}>
-                        <div className={styles.emailFormHeader}>
-                            <span className={styles.closeIcon} onClick={handleButtonClick}>
-                                &times;
-                            </span>
+
+
+
+                <div className={styles.mailContainer}>
+                    <button className={styles.button} onClick={handleButtonClick}>New Email</button>
+                        {showForm && (
+                        <div className={styles.emailFormContainer}>
+                            <div className={styles.emailFormHeader}>
+                                <span className={styles.closeIcon} onClick={handleButtonClick}>
+                                    &times;
+                                </span>
+                            </div>
+                            <EmailForm />
                         </div>
-                        <EmailForm />
+                    )}
+
+
+
+
+                    <div className={styles.mailTableContainer}>
+                        <MailTable/>
                     </div>
-                )}
-    
+                </div>
             </div>
     
         );

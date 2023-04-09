@@ -27,21 +27,21 @@ function EmailForm() {
         // You can do further processing with the form data here, such as sending an email
 
 
-
-
         const { data, error } = await supabase
             .from('Messages')
             .insert([{ 
                 recipient_email: recipientRef.current.value,
                 subject: subjectRef.current.value,
                 message: messageRef.current.value,
-                sender_id: user.id
+                sender_email: user.email
                 },
             ])
 
         if (error) {
             console.log(error);
         }
+
+
     };
 
     return (
