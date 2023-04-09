@@ -42,17 +42,22 @@ function MailTable() {
 
     
     return (
-        <ul>
+        <table className={styles.mailTable}>
+            <tr>
+                <th> From </th>
+                <th> Subject </th>
+                <th> Body </th>
+                <th> Time Sent</th>
+            </tr>
           {emails.map((email) => (
-            <li key={email.id}>
-              <h3>{email.subject}</h3>
-              <p>from: {email.sender_id}</p>
-              <p>to: {email.recipient_email}</p>
-              <p>{email.message}</p>
-              <p>time sent: {email.time_sent}</p>
-            </li>
+            <tr key={email.id}>
+                <td>{email.sender_id}</td>
+                <td>{email.subject}</td>
+                <td>{email.message}</td>
+                <p>{email.time_sent}</p>
+            </tr>
           ))}
-        </ul>
+        </table>
       
     );
 }

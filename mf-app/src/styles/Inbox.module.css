@@ -140,6 +140,15 @@
 }
 
 .mailTableContainer {
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 90vw;
+}
+
+.mailTable {
+    width: 80%;
+    text-align: center;
 }
 
