@@ -109,20 +109,33 @@ export default function Topbar({ pageTitle }) {
                 <Navbar className={styles.navContainer} bg="mainColor" variant="dark" expand="md" fixed="top">
 
 
-                    <div className={styles.logo} onClick={() => {router.push('/')}} >
-                        <Image src={logo} alt="logo" />
-                        <h3> {isMobile ? 'MF' : 'ModernFunding'} </h3>
-                    </div>
+                    
 
                     <Navbar.Toggle id="mobile-collapse-btn" aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse className={styles.middleNav} id="basic-navbar-nav">
-                    <Nav className="m-auto">
+                    <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className={styles.leftNav}>
+
+                        <div className={styles.logo} onClick={() => {router.push('/')}} >
+                            <Image src={logo} alt="logo" />
+                            <h3> {isMobile ? 'MF' : 'ModernFunding'} </h3>
+                        </div>
+
+                    </Nav>
+
+                    <Nav className={styles.middleNav}>
                         
                         <h1 id="page-title" className={styles.pageTitle}>{pageTitle}</h1>
+                    </Nav>
+                    
+                    <Nav className={styles.rightNav}>
                         
-                        <Link href="/login">
-                            <Button className={styles.signUpBtn} id="sign-up-btn">Sign In/Up</Button>
-                        </Link>
+                            <Link href="/login">
+                                <Button className={styles.signUpBtn} id="sign-up-btn">Sign In/Up</Button>
+                            </Link>
+
+                            <div className={styles.loginButton} onClick={() => handleClick()}>
+                                <Image src={login_svg} alt="logo"/>
+                            </div>
 
                         
                     </Nav>
@@ -130,14 +143,7 @@ export default function Topbar({ pageTitle }) {
                         
                     </Navbar.Collapse>
 
-                    <div className={styles.containerLeft}>
-                        
-
-
-                        <div className={styles.loginButton} onClick={() => handleClick()}>
-                            <Image src={login_svg} alt="logo"/>
-                        </div>
-                    </div>
+                    
                 </Navbar>
 
 
@@ -154,17 +160,33 @@ export default function Topbar({ pageTitle }) {
                 <Navbar className={styles.navContainer} bg="mainColor" variant="dark" expand="md" fixed="top">
 
 
-                    <div className={styles.logo} onClick={() => {router.push('/')}} >
-                        <Image src={logo} alt="logo" />
-                        <h3> {isMobile ? 'MF' : 'ModernFunding'} </h3>
-                    </div>
+                    
 
                     <Navbar.Toggle id="mobile-collapse-btn" aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse className={styles.middleNav} id="basic-navbar-nav">
-                    <Nav className="m-auto">
-                        
+                    <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className={styles.leftNav}>
+
+                        <div className={styles.logo} onClick={() => {router.push('/')}} >
+                            <Image src={logo} alt="logo" />
+                            <h3> {isMobile ? 'MF' : 'ModernFunding'} </h3>
+                        </div>
+
+                    </Nav>
+
+                    <Nav className={styles.middleNav}>
                         
                         <h1 id="page-title" className={styles.pageTitle}>{pageTitle}</h1>
+                    </Nav>
+                    
+                    <Nav className={styles.rightNav}>
+                        
+                        <div className={styles.username}>
+                            <h2 id='username'></h2>
+                        </div>
+
+                        <div className={styles.loginButton} onClick={() => handleClick()}>
+                            <Image src={login_svg} alt="logo"/>
+                        </div>
 
                         
                     </Nav>
@@ -172,28 +194,18 @@ export default function Topbar({ pageTitle }) {
                         
                     </Navbar.Collapse>
 
-                    <div className={styles.containerLeft}>
-                        <div className={styles.username}>
-                            <h2 id='username'></h2>
-                        </div>
-
-
-
-                        <div className={styles.loginButton} onClick={() => handleClick()}>
-                            <Image src={login_svg} alt="logo"/>
-                        </div>
-                    </div>
+                    
                 </Navbar>
 
 
                 <Sidebar
                     showSideNav={showSideNav}
-                    userInfo={userInfo}
+                    userInfo={null}
                 />
             </div>
         );
     }
-    
+
 }
 
 

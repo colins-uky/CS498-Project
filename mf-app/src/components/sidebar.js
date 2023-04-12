@@ -84,7 +84,7 @@ function Sidebar(props) {
                 <div className={styles.sideNavList}>
                     <Link href="/login">Login</Link>
                     <Link className={styles.topLink} href="/">Home</Link>
-                    <Link href="/"> Inbox </Link>
+                    <Link href="/inbox"> Inbox </Link>
                     <Link href="/dashboard"> Dashboard </Link>
                     <a id="settings" href="#settings"> 
                         Settings&nbsp;&nbsp;

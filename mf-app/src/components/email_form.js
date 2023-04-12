@@ -1,76 +1,89 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
-import styles from "@/styles/Inbox.module.css"
+import styles from '@/styles/Inbox.module.css';
 
 function EmailForm() {
-    const [recipient, setRecipient] = useState('');
-    const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
 
-    const handleSubmit = (event) => {
+    const recipientRef = useRef();
+    const subjectRef = useRef();
+    const messageRef = useRef();
+
+    const user = useUser();
+    const supabase = useSupabaseClient();
+
+    async function handleSubmit(event) {
         event.preventDefault();
-        // Send email logic goes here
-        
+
+
+
+        console.log('Recipient:', recipientRef.current.value);
+        console.log('Subject:', subjectRef.current.value);
+        console.log('Message:', messageRef.current.value);
+        // You can do further processing with the form data here, such as sending an email
+
+
+        const { data, error } = await supabase
+            .from('Messages')
+            .insert([{ 
+                recipient_email: recipientRef.current.value,
+                subject: subjectRef.current.value,
+                message: messageRef.current.value,
+                sender_email: user.email
+                },
+            ])
+
+        if (error) {
+            console.log(error);
+        }
+
+
     };
 
     return (
-        <div className={styles.container}>
+        <Form onSubmit={handleSubmit}>
 
-        <h1 className={styles.title}>Compose Email</h1>
+            <h1 className={styles.composeTitle}> Compose Email </h1>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.inputGroup}>
-            <label htmlFor="recipient" className={styles.label}>
-                To:
-            </label>
-            <input
-                type="email"
-                id="recipient"
-                className={styles.input}
-                value={recipient}
-                onChange={(event) => setRecipient(event.target.value)}
-                required
-            />
-            </div>
+            <InputGroup className={styles.topInput}>
+                <InputGroup.Text id="basic-addon1">To:</InputGroup.Text>
+                <Form.Control
+                placeholder="example@email.com"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                ref={recipientRef}
+                />
+            </InputGroup>
 
-            <div className={styles.inputGroup}>
-            <label htmlFor="subject" className={styles.label}>
-                Subject:
-            </label>
-            <input
-                type="text"
-                id="subject"
-                className={styles.input}
-                value={subject}
-                onChange={(event) => setSubject(event.target.value)}
-                required
-            />
-            </div>
+            <InputGroup className={styles.inputGroup}>
 
-            <div className={styles.inputGroup}>
-            <label htmlFor="message" className={styles.label}>
-                Message:
-            </label>
-            <textarea
-                id="message"
-                className={styles.textarea}
-                value={message}
-                onChange={(event) => setMessage(event.target.value)}
-                required
-            />
-            </div>
+                <Form.Control 
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                placeholder='Add a subject' 
+                ref={subjectRef}
+                />
+            </InputGroup>
 
-            <div className={styles.buttonGroup}>
-            <button type="submit" className={styles.button}>
-                Send Message
-            </button>
-            <button type="button" className={styles.button} onClick={() => {}}>
-                Cancel
-            </button>
-            </div>
-        </form>
-        </div>
+            <InputGroup className={styles.inputGroup}>
+                <Form.Control
+                as="textarea" 
+                aria-label="With textarea"
+                placeholder='Your message here...'
+                ref={messageRef} 
+                />
+            </InputGroup>
+
+            <Button className={styles.emailButton} variant="primary" type="submit">
+                Send Email
+            </Button>
+
+        </Form>
     );
-    };
+}
 
 export default EmailForm;

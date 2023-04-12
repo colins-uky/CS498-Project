@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
 .emailFormContainer {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
-    max-width: 500px;
+    max-width: 600px;
     background-color: #fff;
     border: 1px solid #ccc;
-    padding: 20px;
+    padding: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 
 .emailFormHeader {
@@ -18,13 +21,18 @@
 }
 
 .closeIcon {
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 15px;
 }
 
-.unorderdList {
-    list-style: none;
+.closeIcon:hover {
+    color: red;
 }
+
+
 
 .titleContainer {
     text-align: center;
@@ -48,7 +56,42 @@
 }
 
 .inputGroup {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    
+}
+
+
+.inputGroup input, 
+.inputGroup span,
+.inputGroup textarea {
+    border-radius: 0;
+}
+
+.topInput span {
+    font-family: 'Roboto Mono', monospace;
+    border-radius: 10px 0 0 0;
+}
+.topInput input {
+    border-radius: 0 10px 0 0;
+}
+
+
+.inputGroup textarea {
+    height: 12rem;
+    border-radius: 0 0 10px 10px;
+}
+
+.inputGroup span {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.emailButton {
+    float: right;
+    margin-top: 20px;
+}
+
+.noMargin {
+    margin: 0;
 }
 
 .label {
@@ -63,11 +106,16 @@
     border-radius: 4px;
     font-size: 1.2rem;
     padding: 0.5rem;
+    width: 100%;
+    
+
 }
 
-.textarea {
-    height: 10rem;
+.composeTitle {
+    text-align: center;
+    margin-bottom: 2rem;
 }
+
 
 .buttonGroup {
     display: flex;
@@ -81,16 +129,59 @@
     border-radius: 4px;
     color: #fff;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-left: 1rem;
     padding: 0.5rem 1rem;
     text-align: center;
+    height: 44px;
+    width: 120px;
 }
 
 .button:hover {
     background-color: #3e8e41;
 }
 
+.mailContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+}
+
 .mailTableContainer {
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+
+.mailTable {
+    width: 80%;
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.mailTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #aaa;
+}
+
+.mailTable td{
+    background-color: #fff;
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #aaa;
+}
+
+.mailTable tr {
+    background-color: #f2f2f2;
 }
