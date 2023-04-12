@@ -200,7 +200,7 @@ export default function Topbar({ pageTitle }) {
 
                 <Sidebar
                     showSideNav={showSideNav}
-                    userInfo={null}
+                    userInfo={userInfo}
                 />
             </div>
         );

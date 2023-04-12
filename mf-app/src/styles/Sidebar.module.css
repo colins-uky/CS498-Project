@@ -72,16 +72,24 @@
     color: var(--textColor);
     font-size: x-large;
     font-weight: bold;
+    text-align: center;
 
 
     text-decoration: none;
     padding: 25px 0px;
+    padding-right: 25px;
 }
 
 .sideNavList a:hover{
     color: var(--secondaryColor);
     background-color: #02182d;
 }
+
+.sideNavList svg {
+    float: left;
+    margin: 0 20px;
+}
+
 
 .topLink {
     margin-top: 0;
