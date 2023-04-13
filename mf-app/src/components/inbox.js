@@ -2,6 +2,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+
 import React from 'react';
 import EmailForm from './email_form';
 import MailTable from './mail_table';
@@ -109,7 +112,9 @@ function Inbox() {
                         <div className={styles.emailFormContainer}>
                             <div className={styles.emailFormHeader}>
                                 <span className={styles.closeIcon} onClick={handleButtonClick}>
-                                    &times;
+                                    <FontAwesomeIcon
+                                        icon={faXmark}
+                                    />
                                 </span>
                             </div>
                             <EmailForm />

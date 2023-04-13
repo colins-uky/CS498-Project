@@ -1,100 +1,88 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
-import styles from "@/styles/Dashboard.module.css";
+import styles from '@/styles/Dashboard.module.css';
 
 function DashboardForm() {
-    const [formValues, setFormValues] = useState({
-        amount: '',
-        apr: '',
-        description: '',
-        loanLength: '',
-        paymentFrequency: '',
-    });
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
+    const recipientRef = useRef();
+    const subjectRef = useRef();
+    const messageRef = useRef();
 
-        setFormValues((prevState) => ({
-        ...prevState,
-        [name]: value,
-        }));
-    };
+    const user = useUser();
+    const supabase = useSupabaseClient();
 
-    const handleSubmit = (event) => {
+    async function handleSubmit(event) {
         event.preventDefault();
 
-        // Do something with the form values
-        console.log(formValues);
+
+
+        console.log('Recipient:', recipientRef.current.value);
+        console.log('Subject:', subjectRef.current.value);
+        console.log('Message:', messageRef.current.value);
+        // You can do further processing with the form data here, such as sending an email
+
+
+        const { data, error } = await supabase
+            .from('Investments')
+            .insert([{ 
+                recipient_email: recipientRef.current.value,
+                subject: subjectRef.current.value,
+                message: messageRef.current.value,
+                sender_email: user.email
+                },
+            ])
+
+        if (error) {
+            console.log(error);
+        }
+
+
     };
 
-    const { amount, apr, description, loanLength, paymentFrequency } = formValues;
-
     return (
-        <form onSubmit={handleSubmit} className={styles.blank}>
-            <div className={styles.field}>
-                <label htmlFor="amount">Amount:</label>
-                <input
-                type="number"
-                id="amount"
-                name="amount"
-                value={amount}
-                onChange={handleInputChange}
-                className={styles.input}
-                />
-            </div>
+        <Form onSubmit={handleSubmit}>
 
-            <div className={styles.field}>
-                <label htmlFor="apr">APR:</label>
-                <input
-                type="number"
-                id="apr"
-                name="apr"
-                value={apr}
-                onChange={handleInputChange}
-                className={styles.input}
-                />
-            </div>
+            <h1 className={styles.composeTitle}> Create Listing </h1>
 
-            <div className={styles.field}>
-                <label htmlFor="description">Description:</label>
-                <textarea
-                id="description"
-                name="description"
-                value={description}
-                onChange={handleInputChange}
-                className={styles.textarea}
+            <InputGroup className={styles.topInput}>
+                <Form.Control
+                placeholder="example@email.com"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                ref={recipientRef}
+                
                 />
-            </div>
+            </InputGroup>
 
-            <div className={styles.field}>
-                <label htmlFor="loanLength">Length of loan (in years):</label>
-                <input
-                type="number"
-                id="loanLength"
-                name="loanLength"
-                value={loanLength}
-                onChange={handleInputChange}
-                className={styles.input}
+            <InputGroup className={styles.inputGroup}>
+
+                <Form.Control 
+                id="basic-url"
+                aria-describedby="basic-addon3"
+                placeholder='Add a subject' 
+                ref={subjectRef}
                 />
-            </div>
+            </InputGroup>
 
-            <div className={styles.field}>
-                <label htmlFor="paymentFrequency">Payment frequency:</label>
-                <select
-                id="paymentFrequency"
-                name="paymentFrequency"
-                value={paymentFrequency}
-                onChange={handleInputChange}
-                className={styles.select}
-                >
-                <option value="weekly">Weekly</option>
-                <option value="biweekly">Bi-weekly</option>
-                <option value="monthly">Monthly</option>
-                </select>
-            </div>
-            
-            <button type="submit" className={styles.submitButton}>Submit</button>
-        </form>
+            <InputGroup className={styles.inputGroup}>
+                <Form.Control
+                as="textarea" 
+                aria-label="With textarea"
+                placeholder='Your message here...'
+                ref={messageRef} 
+                />
+            </InputGroup>
+
+            <Button className={styles.emailButton} variant="primary" type="submit">
+                Send Email
+            </Button>
+
+        </Form>
     );
 }
 

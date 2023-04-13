@@ -19,7 +19,7 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 
-import styles from '@/styles/Topbar.module.css';
+
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -27,7 +27,7 @@ import { useRouter } from 'next/router';
 
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
-
+import styles from '@/styles/Topbar.module.css';
 
 
 

@@ -5,6 +5,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+
 import LoginModule from './login';
 import DashboardForm from './dashboard_form';
 import DashboardTable from './dashboard_table';
@@ -18,13 +21,10 @@ function DashboardModule() {
     const [showDashForm, setShowDashForm] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
 
-    const handleShowDashForm = () => {
-        setShowDashForm(true);
+    const handleButtonClick = () => {
+        setShowDashForm(!showDashForm);
     };
     
-    const handleCloseDashForm = () => {
-        setShowDashForm(false);
-    };
 
     useEffect(() => {
         if (user && userInfo === null) {
@@ -64,23 +64,39 @@ function DashboardModule() {
 
 
         return (
-            <div className={styles.dashboardContainer}>
-                <div className={styles.dashboardHeader}>
-                    <h1>Welcome back, {userInfo.first_name}</h1>
-                </div>
-                
-                <Topbar/>
+            <div className={styles.container}>
+                <Topbar
+                    pageTitle={"Dashboard"}
+                />
+
+                <div className={styles.dashboardContainer}>
+                    <div className={styles.dashboardHeader}>
+                        <h1>Welcome back, {userInfo.first_name}</h1>
+                    </div>
 
 
+                    <button className={styles.button} onClick={handleButtonClick}>Create New Listing</button>
 
+                    <div className={styles.dashboardFormContainer}>
+                        
+                            {showDashForm && (
+                            <div className={styles.emailFormContainer}>
+                                <div className={styles.emailFormHeader}>
+                                    <span className={styles.closeIcon} onClick={handleButtonClick}>
+                                        <FontAwesomeIcon
+                                            icon={faXmark}
+                                        />
+                                    </span>
+                                </div>
+                                <DashboardForm />
+                            </div>
+                        )}
+                    </div>
 
-                <div className="loan-page-content">
-                    <button onClick={handleShowDashForm}>Add Loan</button>
-                        {showDashForm && <DashboardForm onClose={handleCloseDashForm} />}
-                </div>
+                    <div className={styles.dashboardTableContainer}>
+                        <DashboardTable/>
+                    </div>
 
-                <div className={styles.dashboardTableContainer}>
-                    <DashboardTable/>
                 </div>
             </div>
         );
