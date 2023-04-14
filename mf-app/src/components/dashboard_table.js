@@ -22,12 +22,6 @@ function DashboardTable({ investments }) {
     console.log(payment);
 
 
-    // Push un-Authorized Users off the page
-    useEffect(() => {
-        if (user === null) {
-            //router.push('/');
-        }
-    }, [user]);
   
     if (investments) {
         return (

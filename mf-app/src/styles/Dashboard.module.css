@@ -124,7 +124,7 @@
 
 .inputGroup {
     margin-bottom: 0;
-    
+    height: 3rem;
 }
 
 
@@ -143,8 +143,8 @@
 }
 
 
-.inputGroup textarea {
-    height: 12rem;
+.textarea {
+    height: 50px;
     border-radius: 0 0 10px 10px;
 }
 

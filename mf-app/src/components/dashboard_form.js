@@ -51,10 +51,10 @@ function DashboardForm() {
 
             <InputGroup className={styles.topInput}>
                 <Form.Control
-                placeholder="example@email.com"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                ref={recipientRef}
+                    placeholder="Title"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                    ref={recipientRef}
                 
                 />
             </InputGroup>
@@ -62,19 +62,20 @@ function DashboardForm() {
             <InputGroup className={styles.inputGroup}>
 
                 <Form.Control 
-                id="basic-url"
-                aria-describedby="basic-addon3"
-                placeholder='Add a subject' 
-                ref={subjectRef}
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                    placeholder='Amount seeking' 
+                    ref={subjectRef}
+                    type='number'
                 />
             </InputGroup>
 
             <InputGroup className={styles.inputGroup}>
                 <Form.Control
-                as="textarea" 
-                aria-label="With textarea"
-                placeholder='Your message here...'
-                ref={messageRef} 
+                    as="textarea" 
+                    aria-label="With textarea"
+                    placeholder='Your message here...'
+                    ref={messageRef} 
                 />
             </InputGroup>
 
