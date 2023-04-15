@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { Finance } from 'financejs';
 
 
 import styles from '@/styles/Dashboard.module.css';
@@ -15,26 +14,21 @@ function DashboardTable({ investments }) {
     const supabase = useSupabaseClient();
 
     
-    const finance = new Finance();
-
-    let payment = finance.AM(330000, 5.27, 360, 1);
-
-    console.log(payment);
-
+    
 
   
     if (investments) {
         return (
             <div className={styles.tableContainer}>
                 <div className="dashboard-list">
-                  {investments.map((option) => (
-                  <div key={option.id} className="options">
-                      <div className="option-amount">{option.amount}</div>
-                      <div className="email-apr">{option.apr}</div>
-                      <div className="email-description">{option.description}</div>
-                      <div className="option-loanLength">{option.loanLength}</div>
-                      <div className="email-paymentFrequency">{option.paymentFrequency}</div>
-                      <div className="email-description">{option.description}</div>
+                  {investments.map((investment) => (
+                  <div key={investment.id} className="investments">
+                      <div className="investment-amount">{investment.amount}</div>
+                      <div className="email-apr">{investment.apr}</div>
+                      <div className="email-description">{investment.description}</div>
+                      <div className="investment-loanLength">{investment.loanLength}</div>
+                      <div className="email-paymentFrequency">{investment.paymentFrequency}</div>
+                      <div className="email-description">{investment.description}</div>
                 </div>
               ))}
             </div>

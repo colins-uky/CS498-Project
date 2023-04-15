@@ -21,7 +21,7 @@ function DashboardModule() {
     const [showDashForm, setShowDashForm] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
 
-    const handleButtonClick = () => {
+    const toggleDashForm = () => {
         setShowDashForm(!showDashForm);
     };
     
@@ -71,24 +71,28 @@ function DashboardModule() {
 
                 <div className={styles.dashboardContainer}>
                     <div className={styles.dashboardHeader}>
-                        <h1>Welcome back, {userInfo.first_name}</h1>
+
                     </div>
 
 
-                    <button className={styles.button} onClick={handleButtonClick}>Create New Listing</button>
+                    <button className={styles.button} onClick={toggleDashForm}>Create New Listing</button>
 
                     <div className={styles.dashboardFormContainer}>
                         
                             {showDashForm && (
-                            <div className={styles.emailFormContainer}>
-                                <div className={styles.emailFormHeader}>
-                                    <span className={styles.closeIcon} onClick={handleButtonClick}>
+                            <div className={styles.dashFormContainer}>
+                                <div className={styles.dashFormHeader}>
+                                    <span className={styles.closeIcon} onClick={toggleDashForm}>
                                         <FontAwesomeIcon
                                             icon={faXmark}
                                         />
                                     </span>
                                 </div>
-                                <DashboardForm />
+                                
+                                <DashboardForm
+                                    toggleDashForm={toggleDashForm}
+                                />
+
                             </div>
                         )}
                     </div>

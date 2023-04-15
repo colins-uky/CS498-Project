@@ -5,85 +5,182 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
+import AmortizationTable from './amortization_table';
+
 import styles from '@/styles/Dashboard.module.css';
 
-function DashboardForm() {
+function DashboardForm(props) {
 
-    const recipientRef = useRef();
-    const subjectRef = useRef();
+
+
+    const titleRef = useRef();
+    const amountRef = useRef();
+    const interestRef = useRef();
+    const loanLengthRef = useRef();
     const messageRef = useRef();
+
+    const [showAmort, setShowAmort] = useState();
 
     const user = useUser();
     const supabase = useSupabaseClient();
 
+
+    const toggleAmortTable = () => {
+        setShowAmort(!showAmort);
+    };
+
     async function handleSubmit(event) {
         event.preventDefault();
 
+        const numPayments = loanLengthRef.current.value * 12;
 
-
-        console.log('Recipient:', recipientRef.current.value);
-        console.log('Subject:', subjectRef.current.value);
+        console.log('Title:', titleRef.current.value);
+        console.log('Amount:', amountRef.current.value);
+        console.log('Interest:', interestRef.current.value);
+        console.log('Num_Payments:', numPayments);
         console.log('Message:', messageRef.current.value);
         // You can do further processing with the form data here, such as sending an email
 
+        
 
+        
         const { data, error } = await supabase
             .from('Investments')
             .insert([{ 
-                recipient_email: recipientRef.current.value,
-                subject: subjectRef.current.value,
-                message: messageRef.current.value,
-                sender_email: user.email
+                owner_id: user.id,
+                title: titleRef.current.value,
+                amount_seeking: amountRef.current.value,
+                interest_rate: interestRef.current.value,
+                num_payments: numPayments,
+                description: messageRef.current.value
                 },
             ])
 
         if (error) {
             console.log(error);
         }
+        
+        
 
 
+
+
+        // Close the dashboard form after submit logic
+        props.toggleDashForm();
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <div>
+            <Form  className={styles.formContainer} onSubmit={handleSubmit}>
 
-            <h1 className={styles.composeTitle}> Create Listing </h1>
+                <h1 className={styles.composeTitle}> Create Listing </h1>
+                <Form.Label>Title</Form.Label>
+                <InputGroup className={styles.inputGroup}>
+                    <Form.Control
+                        placeholder="Loan title"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        ref={titleRef}
+                        required
+                    />
+                </InputGroup>
 
-            <InputGroup className={styles.topInput}>
-                <Form.Control
-                    placeholder="Title"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                    ref={recipientRef}
-                
-                />
-            </InputGroup>
 
-            <InputGroup className={styles.inputGroup}>
+                <Form.Label>Amount & Interest</Form.Label>
+                <div className={styles.doubleInput}>
 
-                <Form.Control 
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                    placeholder='Amount seeking' 
-                    ref={subjectRef}
-                    type='number'
-                />
-            </InputGroup>
+                    <InputGroup className={styles.inputGroup}>
 
-            <InputGroup className={styles.inputGroup}>
-                <Form.Control
-                    as="textarea" 
-                    aria-label="With textarea"
-                    placeholder='Your message here...'
-                    ref={messageRef} 
-                />
-            </InputGroup>
+                        <Form.Control 
+                            id="basic-url"
+                            aria-describedby="basic-addon3"
+                            placeholder='Amount seeking' 
+                            ref={amountRef}
+                            type='number'
+                            step='0.01'
+                            required
 
-            <Button className={styles.emailButton} variant="primary" type="submit">
-                Send Email
-            </Button>
+                        />
+                    </InputGroup>
 
-        </Form>
+
+                    
+                    <InputGroup className={styles.inputGroup} id='end'>
+                        
+                        <Form.Control 
+                            id="basic-url"
+                            aria-describedby="basic-addon3"
+                            placeholder='Annual interest rate' 
+                            ref={interestRef}
+                            type='number'
+                            step='0.01'
+                            required
+                        />
+                    </InputGroup>
+
+
+                </div>
+
+                <Form.Label>Loan Length (Years)</Form.Label>
+                <div className={styles.doubleInput}>
+                    
+                    <InputGroup className={styles.inputGroup} id='single'>
+
+                        <Form.Control 
+                            id="basic-url"
+                            aria-describedby="basic-addon3"
+                            placeholder='Loan length' 
+                            ref={loanLengthRef}
+                            type='number'
+                            step="0.25"
+                            required
+                        />
+
+                    </InputGroup>
+
+
+
+
+                </div>
+
+
+
+                <Form.Label>Other information...   Why do you want/need this loan?</Form.Label>
+                <InputGroup className={styles.inputGroup}>
+                    
+                    <Form.Control
+                        as="textarea" 
+                        aria-label="With textarea"
+                        placeholder='Your message here...'
+                        ref={messageRef} 
+                        required
+                    />
+                </InputGroup>
+
+                <Button className={styles.emailButton} variant="primary" type="submit">
+                    Create Listing
+                </Button>
+
+                <Button className={styles.amortButton} onClick={toggleAmortTable} variant="primary">
+                    View Amortization Table
+                </Button>
+
+
+                {showAmort && 
+                    <AmortizationTable
+                        amount={amountRef.current.value}
+                        interest_rate={interestRef.current.value}
+                        num_payments={loanLengthRef.current.value * 12}
+                    />
+                }
+
+            </Form>
+
+
+
+
+            
+        </div>
     );
 }
 

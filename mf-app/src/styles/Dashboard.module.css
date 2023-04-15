@@ -21,16 +21,6 @@
 
 
 
-.blank {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font-family: inherit;
-    vertical-align: baseline;
-    box-sizing: border-box;
-}
-  
 .field {
     display: flex;
     flex-direction: column;
@@ -77,9 +67,10 @@
     align-self: flex-start;
 }
 
-.button:hover {
+.button:hover, .emailButton:hover, .amortButton:hover {
     background-color: #4ACA85;
     box-shadow: 0 0 20px #4ACA85;
+    border: 1px solid #4ACA85;
 }
 
 .dashboardFormContainer {
@@ -89,13 +80,13 @@
 }
 
 
-.emailFormContainer {
+.dashFormContainer {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    max-width: 600px;
+    width: 65%;
+    max-width: 900px;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 40px;
@@ -103,7 +94,7 @@
     border-radius: 10px;
 }
 
-.emailFormHeader {
+.dashFormHeader {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -121,55 +112,72 @@
     color: red;
 }
 
+.composeTitle {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.doubleInput {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.doubleInput .inputGroup {
+    width: 50%;
+    margin-right: 20px;
+}
+
+.doubleInput .inputGroup[id='end'] {
+    margin-right: 0;
+}
+
+.doubleInput .inputGroup[id='single'] {
+    padding-right: 10px;
+    margin-right: 0;
+}
+
 
 .inputGroup {
-    margin-bottom: 0;
-    height: 3rem;
+    margin-bottom: 20px;
 }
 
 
-.inputGroup input, 
-.inputGroup span,
 .inputGroup textarea {
-    border-radius: 0;
+    height: 10vh;
+}
+  
+.formContainer label {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+}
+  
+.inputGroup input, .inputGroup select, .inputGroup textarea{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    
 }
 
-.topInput span {
-    font-family: 'Roboto Mono', monospace;
-    border-radius: 10px 0 0 0;
-}
-.topInput input {
-    border-radius: 10px 10px 0 0;
-}
-
-
-.textarea {
-    height: 50px;
-    border-radius: 0 0 10px 10px;
-}
-
-.inputGroup span {
-    font-family: 'Roboto Mono', monospace;
+.inputGroup input:focus, .inputGroup textarea:focus {
+    outline: 2px solid var(--secondaryColor);
+    border: 1px solid var(--secondaryColor);
 }
 
 .emailButton {
-    float: right;
+    height: 44px;
+    width: 25%;
+    min-width: 140px;
     margin-top: 20px;
+    float: right;
 }
 
-.input,
-.textarea {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1.2rem;
-    padding: 0.5rem;
-    width: 100%;
-    
-
+.amortButton {
+    height: 44px;
+    width: 50%;
+    min-width: 140px;
+    margin-top: 20px;
+    float: left;
 }
-
-.composeTitle {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
