@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -63,7 +63,6 @@ function AmortizationTable(props) {
 
         let totalAmount = parseFloat(props.amount);
         let annual_interest_rate = parseFloat(props.interest_rate);
-        let monthly_interest_rate = annual_interest_rate / 12;
         let num_payments = parseInt(props.num_payments);
 
         let decimalMonthlyInterestRate = annual_interest_rate / 100 / 12;

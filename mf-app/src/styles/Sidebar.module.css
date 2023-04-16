@@ -1,5 +1,5 @@
 .navContainer {
-    background-color: rgba(3, 36, 69, 0.99);
+    background-color: #05386B;
     width: 265px;
     height: 100vh;
     float: right;
@@ -18,7 +18,7 @@
     transform: translateX(300px);
     transition: 0.3s;
 
-    background-color: rgba(3, 36, 69, 0.99);
+    background-color: #05386B;
     width: 265px;
     height: 100vh;
     float: right;

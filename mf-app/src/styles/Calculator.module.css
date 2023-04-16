@@ -1,0 +1,91 @@
+.container {
+    margin: 10vh 20% 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 3px solid #4ACA85;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 7px 5px 20px rgba(74, 202, 133, 0.6);
+    max-width: 600px;
+    height: 500px;
+    background-color: #05386b9e;
+}
+
+.container h1 {
+    margin-bottom: 40px;
+    color: #4ACA85;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+.calculatorForm {
+    width: 90%;
+    height: 80%;
+}
+
+.doubleInput {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.doubleInput .inputGroup {
+    width: 50%;
+    margin-right: 20px;
+}
+
+.doubleInput .inputGroup[id='end'] {
+    margin-right: 0;
+}
+
+.doubleInput .inputGroup[id='single'] {
+    padding-right: 10px;
+    margin-right: 0;
+}
+
+
+.inputGroup {
+    margin-bottom: 20px;
+}
+
+
+.inputGroup textarea {
+    height: 10vh;
+}
+  
+.inputGroup label {
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    color: snow;
+}
+  
+.inputGroup input, .inputGroup select, .inputGroup textarea{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    
+}
+
+.inputGroup input:focus, .inputGroup textarea:focus {
+    outline: 2px solid var(--secondaryColor);
+    border: 1px solid var(--secondaryColor);
+}
+
+.calcButton {
+    float: right;
+    width: 40%;
+    margin-top: 100px;
+    padding: 9px;
+}
+
+.calcButton:hover {
+    border: 1px solid #4ACA85;
+    background-color: #4ACA85;
+    box-shadow: 2px 2px 5px rgba(74, 202, 133, 0.6);
+}

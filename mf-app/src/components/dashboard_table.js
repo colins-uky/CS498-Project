@@ -8,41 +8,52 @@ import { ThemeSupa } from '@supabase/auth-ui-shared';
 import styles from '@/styles/Dashboard.module.css';
 
 
-function DashboardTable({ investments }) {
+
+
+
+
+
+
+
+function DashboardTable() {
     const router = useRouter();
     const user = useUser();
     const supabase = useSupabaseClient();
 
     
-    
+    const [investments, setInvestments] = useState([]);
 
   
-    if (investments) {
-        return (
-            <div className={styles.tableContainer}>
-                <div className="dashboard-list">
-                  {investments.map((investment) => (
-                  <div key={investment.id} className="investments">
-                      <div className="investment-amount">{investment.amount}</div>
-                      <div className="email-apr">{investment.apr}</div>
-                      <div className="email-description">{investment.description}</div>
-                      <div className="investment-loanLength">{investment.loanLength}</div>
-                      <div className="email-paymentFrequency">{investment.paymentFrequency}</div>
-                      <div className="email-description">{investment.description}</div>
-                </div>
-              ))}
-            </div>
-            </div>
-        );
-    }
+    useEffect(() => {
+        async function fetchInvestments() {
+            const { data, error } = await supabase.from('Investments').select('*');
+            if (error) {
+                console.error('Error fetching investments:', error);
+            } 
+            else {
+                setInvestments(data);
+            }
+        };
 
-    else {
-        return (
-            <div className={styles.tableContainer}>
-                <h1>Error Loading...</h1>
-            </div>
-        );
-    }
+    
+        fetchInvestments();
+
+    }, []);
+    
+    useEffect(() => {
+        console.log(investments);
+    }, [investments]);
+
+    return (
+        <div>
+          <h1>Investments List</h1>
+          <ul>
+            {investments.map((investment) => (
+              <li key={investment.id}>{investment.description}</li>
+            ))}
+          </ul>
+        </div>
+    );
 };
   
-  export default DashboardTable;
+export default DashboardTable;

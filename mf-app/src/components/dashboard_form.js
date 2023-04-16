@@ -99,6 +99,8 @@ function DashboardForm(props) {
                             ref={amountRef}
                             type='number'
                             step='0.01'
+                            min="0"
+                            max="1000000"
                             required
 
                         />
@@ -115,7 +117,10 @@ function DashboardForm(props) {
                             ref={interestRef}
                             type='number'
                             step='0.01'
+                            min="0.01"
+                            max="100"
                             required
+                            
                         />
                     </InputGroup>
 
@@ -134,6 +139,8 @@ function DashboardForm(props) {
                             ref={loanLengthRef}
                             type='number'
                             step="0.25"
+                            min="1"
+                            max="50"
                             required
                         />
 
