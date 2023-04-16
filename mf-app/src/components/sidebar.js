@@ -4,7 +4,7 @@ import logo from "../images/cash-in-hand-icon.png";
 import login_svg from '../images/profile-circle.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faBorderAll, faHouse, faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faBorderAll, faHouse, faRightFromBracket, faRightToBracket, faCalculator } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 
@@ -73,6 +73,14 @@ function Sidebar(props) {
                             Dashboard 
                         </Link>
 
+                        <Link href="/loan-calculator">
+                            <FontAwesomeIcon
+                                icon={faCalculator}
+                                size="lg"
+                            />
+                            Loan Calculator
+                        </Link>
+
                         <Link href="/settings"> 
                             <FontAwesomeIcon
                                 id="cog-icon"
@@ -129,6 +137,14 @@ function Sidebar(props) {
                             size="lg"
                         />
                         Home
+                    </Link>
+
+                    <Link href="/loan-calculator">
+                        <FontAwesomeIcon
+                            icon={faCalculator}
+                            size="lg"
+                        />
+                        Loan Calculator
                     </Link>
 
                     <Link href="/inbox">

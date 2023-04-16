@@ -11,7 +11,7 @@ import styles from '@/styles/Dashboard.module.css';
 
 function DashboardForm(props) {
 
-
+    
 
     const titleRef = useRef();
     const amountRef = useRef();
@@ -19,7 +19,7 @@ function DashboardForm(props) {
     const loanLengthRef = useRef();
     const messageRef = useRef();
 
-    const [showAmort, setShowAmort] = useState();
+    const [showAmort, setShowAmort] = useState(false);
 
     const user = useUser();
     const supabase = useSupabaseClient();
@@ -68,6 +68,7 @@ function DashboardForm(props) {
         // Close the dashboard form after submit logic
         props.toggleDashForm();
     };
+
 
     return (
         <div>
@@ -165,14 +166,17 @@ function DashboardForm(props) {
                     View Amortization Table
                 </Button>
 
-
                 {showAmort && 
+                
                     <AmortizationTable
                         amount={amountRef.current.value}
                         interest_rate={interestRef.current.value}
                         num_payments={loanLengthRef.current.value * 12}
+                        show_amort={showAmort}
+                        set_show_amort={setShowAmort}
                     />
-                }
+                }   
+                
 
             </Form>
 
