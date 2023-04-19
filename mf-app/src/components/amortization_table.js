@@ -111,8 +111,8 @@ function AmortizationTable(props) {
             totalLoanPrice: (totalAmount + total_interest).toFixed(2),
             totalInterestPaid: total_interest.toFixed(2),
             monthlyPayment: payment.toFixed(2),
-            percentPrincipal: (totalAmount / (totalAmount + total_interest)).toFixed(2),
-            percentInterest: (total_interest / (totalAmount + total_interest)).toFixed(2)
+            percentPrincipal: ((totalAmount / (totalAmount + total_interest)) * 100).toFixed(1),
+            percentInterest: ((total_interest / (totalAmount + total_interest)) * 100).toFixed(1)
         };
 
         return [data, totals];
@@ -144,6 +144,9 @@ function AmortizationTable(props) {
         padding: '20px',
         width: '90%',
         maxWidth: '800px',
+        marginTop: '77px',
+        maxHeight: '85vh',
+        overflowY: 'auto'
     };
 
 
