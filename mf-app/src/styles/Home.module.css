@@ -20,4 +20,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image:  url('../images/business-desk-background.jpg');
+  min-height: 100vh;
 }
