@@ -19,11 +19,19 @@ function DashboardModule() {
     const supabase = useSupabaseClient();
 
     const [showDashForm, setShowDashForm] = useState(false);
+    const [showMyListings, setShowMyListings] = useState(true);
+    
+
+
     const [userInfo, setUserInfo] = useState(null);
 
     const toggleDashForm = () => {
         setShowDashForm(!showDashForm);
     };
+
+    const toggleMyListings = () => {
+        setShowMyListings(!showMyListings);
+    }
     
 
     useEffect(() => {
@@ -74,31 +82,51 @@ function DashboardModule() {
 
                     </div>
 
+                    <div className={styles.dashTopContainer}>
+                        <button className={styles.button} onClick={toggleDashForm}>Create New Listing</button>
 
-                    <button className={styles.button} onClick={toggleDashForm}>Create New Listing</button>
+                        <div className={styles.dashboardFormContainer}>
+                            
+                                {showDashForm && (
+                                <div className={styles.dashFormContainer}>
+                                    <div className={styles.dashFormHeader}>
+                                        <span className={styles.closeIcon} onClick={toggleDashForm}>
+                                            <FontAwesomeIcon
+                                                icon={faXmark}
+                                            />
+                                        </span>
+                                    </div>
+                                    
+                                    <DashboardForm
+                                        toggleDashForm={toggleDashForm}
+                                    />
 
-                    <div className={styles.dashboardFormContainer}>
-                        
-                            {showDashForm && (
-                            <div className={styles.dashFormContainer}>
-                                <div className={styles.dashFormHeader}>
-                                    <span className={styles.closeIcon} onClick={toggleDashForm}>
-                                        <FontAwesomeIcon
-                                            icon={faXmark}
-                                        />
-                                    </span>
                                 </div>
-                                
-                                <DashboardForm
-                                    toggleDashForm={toggleDashForm}
-                                />
+                            )}
+                        </div>
 
-                            </div>
-                        )}
+                        <button className={styles.buttonRight} onClick={toggleMyListings}>{showMyListings ? "Hide My Listings" : "View My Listings"}</button>
+                    
                     </div>
 
+                    {showMyListings && (
                     <div className={styles.dashboardTableContainer}>
-                        <DashboardTable/>
+                        <DashboardTable 
+                            all={false}
+                            owner_id={user.id}
+                            tableTitle="Your Listings"
+                        />
+                    </div>
+                    )}               
+                    
+                    
+
+
+                    <div className={styles.dashboardTableContainer}>
+                        <DashboardTable
+                            all={true}
+                            owner_id={null}
+                            tableTitle="Open Listings"/>
                     </div>
 
                 </div>
