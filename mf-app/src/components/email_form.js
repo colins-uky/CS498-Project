@@ -7,7 +7,7 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import styles from '@/styles/Inbox.module.css';
 
-function EmailForm() {
+function EmailForm(props) {
 
     const recipientRef = useRef();
     const subjectRef = useRef();
@@ -18,13 +18,6 @@ function EmailForm() {
 
     async function handleSubmit(event) {
         event.preventDefault();
-
-
-
-        console.log('Recipient:', recipientRef.current.value);
-        console.log('Subject:', subjectRef.current.value);
-        console.log('Message:', messageRef.current.value);
-        // You can do further processing with the form data here, such as sending an email
 
 
         const { data, error } = await supabase
@@ -41,7 +34,7 @@ function EmailForm() {
             console.log(error);
         }
 
-
+        props.toggleMailForm();
     };
 
     return (

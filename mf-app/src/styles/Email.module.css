@@ -1,0 +1,51 @@
+.emailContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.fRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.senderName {
+    font-size: 36px;
+    
+}
+
+.recipient {
+    color: #0275d8;
+}
+
+
+.emailSubject {
+    font-size: 30px;
+}
+
+.emailMessage {
+    font-size: 18px;
+}
+
+.emailTime {
+
+}
+
+.timeColumn {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeColumn p{
+    margin: 0;
+}
+
+.messageContainer {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
