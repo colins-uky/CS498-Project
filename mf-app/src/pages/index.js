@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Topbar from '@/components/topbar'
 import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router'
+import LandingPage from '@/components/landing_page'
 
 export default function Home(props) {
   
@@ -19,9 +20,12 @@ export default function Home(props) {
         </Head>
         <main className={styles.homeMain}>
 
-        <Topbar
-            pageTitle="Home"
-        />
+            <Topbar
+                pageTitle="Home"
+            />
+
+
+            <LandingPage />
 
         </main>
         </>
