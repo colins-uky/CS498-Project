@@ -49,3 +49,25 @@
     display: flex;
     justify-content: left;
 }
+
+.noSelection {
+    background-image: url("../../../Images/business_desk_background.jpg");
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noSelection h1 {
+    color: #05386B;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 250, 250, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

@@ -34,11 +34,13 @@ export function Email(props) {
     }
     else {
         return (
-            <div>
-                <h1>Select an item to read</h1>
-                <p>Nothing is selected</p>
+            <div className={styles.noSelection}>
+                <div className={styles.overlay}>
+                    <h1>Select an item to read</h1>
+                    <h4>Nothing is selected</h4>
+                </div>
             </div>
-        )
+        );
     }
     
 }
