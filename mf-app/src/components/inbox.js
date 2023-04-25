@@ -3,13 +3,18 @@ import { useEffect, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faInbox } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+
 
 import React from 'react';
 import EmailForm from './email_form';
 import MailTable from './mail_table';
 import LoginModule from './login';
 import Topbar from './topbar';
+import { Email } from './email';
+
+import Button from "react-bootstrap/Button";
 
 import styles from '@/styles/Inbox.module.css';
 
@@ -19,17 +24,16 @@ function Inbox() {
     const router = useRouter();
     const user = useUser();
     const supabase = useSupabaseClient();
-    const didMount = React.useRef(false);
-
-    const [userInfo, setUserInfo] = useState(null);
     
-
+    const [mailData, setMailData] = useState(null);
     const [showForm, setShowForm] = useState(false);
     
 
     const [userMail, setUserMail] = useState(null);
+
+
+    const [displayInbox, setDisplayInbox] = useState('incoming-mail');
     
-    const [sentMail, setSentMail] = useState(null);
 
     const handleButtonClick = () => {
         setShowForm(!showForm);
@@ -43,47 +47,17 @@ function Inbox() {
     }, [user])
 
 
-    useEffect(() => {
-        async function getUserInfo() {
-            let { data, error } = await supabase
-                .from('profiles')
-                .select('*')
-    
-                // Filters
-                .filter('id', 'eq', user.id)
-                .single();
-            if (error) {
-                console.log(error);
-            }
-    
-            setUserInfo(data);
-        }
 
-        if (user) getUserInfo()
-        console.log(user);
-    }, [user]);
-
-    /*
-    
-    async function createMessage(sender_id, recipient_email, subject, message) {
-        let { data, error } = await supabase
-            .from('Messages')
-            .insert([
-                {   subject: subject, 
-                    message: message,
-                    sender_id: sender_id,
-                    recipient_id: ""
-                },
-            ])
-
-        if (error) {
-            console.log(error);
-        }
-        console.log(data);
-        setUserMail(data);
+    function handleInboxChange(inbox) {
+        setDisplayInbox(inbox);
     }
 
-    */
+    const handleDataFromChild = (data) => {
+        console.log(data);
+        setMailData(data);
+    }
+
+
 
 
     if (!user) { // UNAUTHORIZED USER, show login panel
@@ -106,9 +80,49 @@ function Inbox() {
 
 
 
-                <div className={styles.mailContainer}>
-                    <button className={styles.button} onClick={handleButtonClick}>New Email</button>
-                        {showForm && (
+                <div className={styles.mailColumnContainer}>
+
+                    <div className={styles.leftColumn}>
+                        <div className={styles.mailMenu}>
+
+                            <button className={styles.button} onClick={handleButtonClick}>New Email</button>
+
+
+                            <a onClick={() => {handleInboxChange('incoming-mail')}} className={displayInbox === "incoming-mail" ? styles.a1 : ""}>
+                                <FontAwesomeIcon
+                                    icon={faInbox}
+                                />
+                                Inbox
+                            </a>
+
+                            <a onClick={() => {handleInboxChange('sent-mail')}} className={displayInbox === "sent-mail" ? styles.a1 : ""}>
+                                <FontAwesomeIcon
+                                    icon={faPaperPlane}
+                                />
+                                Sent Mail
+                            </a>
+
+
+                        </div>
+                    </div>
+
+                    <div className={styles.middleColumn}>
+                        <MailTable
+                            inbox={displayInbox}
+                            sendMailDataToParent={handleDataFromChild}
+                        />
+                    </div>
+
+                    <div className={styles.rightColumn}>
+                        <Email
+                            emailData={mailData}
+                        
+                        />
+                        
+                    </div>
+                    
+
+                    {showForm && (
                         <div className={styles.emailFormContainer}>
                             <div className={styles.emailFormHeader}>
                                 <span className={styles.closeIcon} onClick={handleButtonClick}>
@@ -117,16 +131,14 @@ function Inbox() {
                                     />
                                 </span>
                             </div>
-                            <EmailForm />
+                            <EmailForm 
+                                toggleMailForm={handleButtonClick}
+                            />
                         </div>
                     )}
 
 
-
-
-                    <div className={styles.mailTableContainer}>
-                        <MailTable/>
-                    </div>
+                    
                 </div>
             </div>
     

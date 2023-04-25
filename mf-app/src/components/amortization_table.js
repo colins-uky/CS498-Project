@@ -108,6 +108,7 @@ function AmortizationTable(props) {
         // Calculate Totals Data
         let totals = {
             amountSeeking: totalAmount.toFixed(2),
+            loanLength: (num_payments / 12),
             totalLoanPrice: (totalAmount + total_interest).toFixed(2),
             totalInterestPaid: total_interest.toFixed(2),
             monthlyPayment: payment.toFixed(2),
@@ -201,6 +202,7 @@ function AmortizationTable(props) {
                         <thead>
                             <tr>
                                 <th>Amount Seeking</th>
+                                <th>Loan Term</th>
                                 <th>Total Loan Price</th>
                                 <th>Total Interest Paid</th>
                                 <th>Monthly Payment</th>
@@ -211,6 +213,7 @@ function AmortizationTable(props) {
                         <tbody>
                             <tr>
                                 <td>${totals.amountSeeking}</td>
+                                <td>{totals.loanLength} years</td>
                                 <td>${totals.totalLoanPrice}</td>
                                 <td>${totals.totalInterestPaid}</td>
                                 <td>${totals.monthlyPayment}</td>

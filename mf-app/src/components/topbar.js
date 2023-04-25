@@ -11,6 +11,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
+import Avatar from './avatar';
 
 
 import Sidebar from './sidebar';
@@ -27,7 +28,7 @@ import { useRouter } from 'next/router';
 
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 
-import styles from '@/styles/Topbar.module.css';
+import styles from '../styles/Topbar.module.css';
 
 
 
@@ -40,6 +41,8 @@ export default function Topbar({ pageTitle }) {
     const [isMobile, setIsMobile] = useState(false);
 
     const [userInfo, setUserInfo] = useState(null);
+
+    const [avatar_url, setAvatarUrl] = useState(null);
 
     
 
@@ -135,6 +138,7 @@ export default function Topbar({ pageTitle }) {
 
                             <div className={styles.loginButton} onClick={() => handleClick()}>
                                 <Image src={login_svg} alt="logo"/>
+                                
                             </div>
 
                         

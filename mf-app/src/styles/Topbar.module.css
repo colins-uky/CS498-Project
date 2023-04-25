@@ -99,7 +99,7 @@
     float: right;
     padding-left: 1rem;
     color: var(--secondaryColor);
-    font-family: 'Abril Fatface', cursive;
+    font-family: 'Abril Fatface';
     font-size: 35px;
     text-shadow: 1px 1px 4px var(--secondaryColorDark);
 }
