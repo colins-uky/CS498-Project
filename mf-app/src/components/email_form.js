@@ -56,6 +56,7 @@ function EmailForm() {
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 ref={recipientRef}
+                required
                 />
             </InputGroup>
 
@@ -74,7 +75,8 @@ function EmailForm() {
                 as="textarea" 
                 aria-label="With textarea"
                 placeholder='Your message here...'
-                ref={messageRef} 
+                ref={messageRef}
+                required 
                 />
             </InputGroup>
 

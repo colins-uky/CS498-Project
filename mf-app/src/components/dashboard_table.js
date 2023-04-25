@@ -3,58 +3,57 @@ import { useEffect, useState } from 'react';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { Finance } from 'financejs';
 
 
 import styles from '@/styles/Dashboard.module.css';
 
 
-function DashboardTable({ investments }) {
+
+
+
+
+
+
+
+function DashboardTable() {
     const router = useRouter();
     const user = useUser();
     const supabase = useSupabaseClient();
 
     
-    const finance = new Finance();
+    const [investments, setInvestments] = useState([]);
 
-    let payment = finance.AM(330000, 5.27, 360, 1);
-
-    console.log(payment);
-
-
-    // Push un-Authorized Users off the page
-    useEffect(() => {
-        if (user === null) {
-            //router.push('/');
-        }
-    }, [user]);
   
-    if (investments) {
-        return (
-            <div className={styles.tableContainer}>
-                <div className="dashboard-list">
-                  {investments.map((option) => (
-                  <div key={option.id} className="options">
-                      <div className="option-amount">{option.amount}</div>
-                      <div className="email-apr">{option.apr}</div>
-                      <div className="email-description">{option.description}</div>
-                      <div className="option-loanLength">{option.loanLength}</div>
-                      <div className="email-paymentFrequency">{option.paymentFrequency}</div>
-                      <div className="email-description">{option.description}</div>
-                </div>
-              ))}
-            </div>
-            </div>
-        );
-    }
+    useEffect(() => {
+        async function fetchInvestments() {
+            const { data, error } = await supabase.from('Investments').select('*');
+            if (error) {
+                console.error('Error fetching investments:', error);
+            } 
+            else {
+                setInvestments(data);
+            }
+        };
 
-    else {
-        return (
-            <div className={styles.tableContainer}>
-                <h1>Error Loading...</h1>
-            </div>
-        );
-    }
+    
+        fetchInvestments();
+
+    }, []);
+    
+    useEffect(() => {
+        console.log(investments);
+    }, [investments]);
+
+    return (
+        <div>
+          <h1>Investments List</h1>
+          <ul>
+            {investments.map((investment) => (
+              <li key={investment.id}>{investment.description}</li>
+            ))}
+          </ul>
+        </div>
+    );
 };
   
-  export default DashboardTable;
+export default DashboardTable;

@@ -3,8 +3,10 @@ import ListGroup from "react-bootstrap/ListGroup";
 import logo from "../images/cash-in-hand-icon.png";
 import login_svg from '../images/profile-circle.svg';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGear, faBorderAll, faHouse, faRightFromBracket, faRightToBracket, faCalculator } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -45,19 +47,56 @@ function Sidebar(props) {
                 <div className={styles.listContainer}>
                     <div className={styles.sideNavList}>
     
-                        <Link className={styles.topLink} href="/">Home</Link>
-                        <Link href="/inbox"> Inbox </Link>
-                        <Link href="/dashboard"> Dashboard </Link>
-                        <a id="settings" href="#settings"> 
-                            Settings&nbsp;&nbsp;
+                        <Link className={styles.topLink} href="/">
+                            <FontAwesomeIcon
+                                icon={faHouse}
+                                size="lg"
+                            />
+                            Home
+                        </Link>
+
+                        <Link href="/inbox">
+                            <FontAwesomeIcon
+                                icon={faEnvelope}
+                                size="lg"
+                            />
+
+                            Inbox 
+                        </Link>
+
+                        <Link href="/dashboard">
+                            <FontAwesomeIcon
+                                icon={faBorderAll}
+                                size="lg"
+                            />
+                            Dashboard 
+                        </Link>
+
+                        <Link href="/loan-calculator">
+                            <FontAwesomeIcon
+                                icon={faCalculator}
+                                size="lg"
+                            />
+                            Loan Calculator
+                        </Link>
+
+                        <Link href="/settings"> 
                             <FontAwesomeIcon
                                 id="cog-icon"
                                 className={styles.cogIcon} 
-                                icon={faCog}
+                                icon={faGear}
                                 size="lg"
-                                />
-                        </a>
-                        <Link href="/" onClick={() => {supabase.auth.signOut(); localStorage.removeItem('user');}}>Log out</Link>
+                            />
+                            Settings 
+                        </Link>
+
+                        <Link href="/" onClick={() => {supabase.auth.signOut(); localStorage.removeItem('user');}}>
+                            <FontAwesomeIcon
+                                icon={faRightFromBracket}
+                                size="lg"
+                            />
+                            Log out
+                        </Link>
                         
                     </div>
                 </div>
@@ -82,20 +121,58 @@ function Sidebar(props) {
             </div>
             <div className={styles.listContainer}>
                 <div className={styles.sideNavList}>
-                    <Link href="/login">Login</Link>
-                    <Link className={styles.topLink} href="/">Home</Link>
-                    <Link href="/inbox"> Inbox </Link>
-                    <Link href="/dashboard"> Dashboard </Link>
-                    <a id="settings" href="#settings"> 
-                        Settings&nbsp;&nbsp;
+
+                    <Link className={styles.topLink} href="/login">
+                        <FontAwesomeIcon
+                            icon={faRightToBracket}
+                            size="lg"
+                        />
+                        Log in
+                    </Link>
+
+                    <Link className={styles.topLink} href="/">
+                        <FontAwesomeIcon
+                            icon={faHouse}
+                            size="lg"
+                        />
+                        Home
+                    </Link>
+
+                    <Link href="/loan-calculator">
+                        <FontAwesomeIcon
+                            icon={faCalculator}
+                            size="lg"
+                        />
+                        Loan Calculator
+                    </Link>
+
+                    <Link href="/inbox">
+                        <FontAwesomeIcon
+                            icon={faEnvelope}
+                            size="lg"
+                        />
+
+                        Inbox 
+                    </Link>
+
+                    <Link href="/dashboard">
+                        <FontAwesomeIcon
+                            icon={faBorderAll}
+                            size="lg"
+                        />
+                        Dashboard 
+                    </Link>
+
+                    <Link href="/settings"> 
                         <FontAwesomeIcon
                             id="cog-icon"
                             className={styles.cogIcon} 
-                            icon={faCog}
+                            icon={faGear}
                             size="lg"
-                            />
-                    </a>
-                    
+                        />
+                        Settings 
+                    </Link>
+
                 </div>
             </div>
 

@@ -23,10 +23,11 @@
 }
 
 .pageTitle {
-    width: 7rem;
+    width: 20rem;
     color: snow;
-    font-family: 'Abril Fatface', cursive;
-    text-align: right;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    font-weight: bold;
 }
 
 .logo {

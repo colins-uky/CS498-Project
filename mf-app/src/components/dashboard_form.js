@@ -1,100 +1,197 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
-import styles from "@/styles/Dashboard.module.css";
+import AmortizationTable from './amortization_table';
 
-function DashboardForm() {
-    const [formValues, setFormValues] = useState({
-        amount: '',
-        apr: '',
-        description: '',
-        loanLength: '',
-        paymentFrequency: '',
-    });
+import styles from '@/styles/Dashboard.module.css';
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
+function DashboardForm(props) {
 
-        setFormValues((prevState) => ({
-        ...prevState,
-        [name]: value,
-        }));
+    
+
+    const titleRef = useRef();
+    const amountRef = useRef();
+    const interestRef = useRef();
+    const loanLengthRef = useRef();
+    const messageRef = useRef();
+
+    const [showAmort, setShowAmort] = useState(false);
+
+    const user = useUser();
+    const supabase = useSupabaseClient();
+
+
+    const toggleAmortTable = () => {
+        setShowAmort(!showAmort);
     };
 
-    const handleSubmit = (event) => {
+    async function handleSubmit(event) {
         event.preventDefault();
 
-        // Do something with the form values
-        console.log(formValues);
+        const numPayments = loanLengthRef.current.value * 12;
+
+        console.log('Title:', titleRef.current.value);
+        console.log('Amount:', amountRef.current.value);
+        console.log('Interest:', interestRef.current.value);
+        console.log('Num_Payments:', numPayments);
+        console.log('Message:', messageRef.current.value);
+        // You can do further processing with the form data here, such as sending an email
+
+        
+
+        
+        const { data, error } = await supabase
+            .from('Investments')
+            .insert([{ 
+                owner_id: user.id,
+                title: titleRef.current.value,
+                amount_seeking: amountRef.current.value,
+                interest_rate: interestRef.current.value,
+                num_payments: numPayments,
+                description: messageRef.current.value
+                },
+            ])
+
+        if (error) {
+            console.log(error);
+        }
+        
+        
+
+
+
+
+        // Close the dashboard form after submit logic
+        props.toggleDashForm();
     };
 
-    const { amount, apr, description, loanLength, paymentFrequency } = formValues;
 
     return (
-        <form onSubmit={handleSubmit} className={styles.blank}>
-            <div className={styles.field}>
-                <label htmlFor="amount">Amount:</label>
-                <input
-                type="number"
-                id="amount"
-                name="amount"
-                value={amount}
-                onChange={handleInputChange}
-                className={styles.input}
-                />
-            </div>
+        <div>
+            <Form  className={styles.formContainer} onSubmit={handleSubmit}>
 
-            <div className={styles.field}>
-                <label htmlFor="apr">APR:</label>
-                <input
-                type="number"
-                id="apr"
-                name="apr"
-                value={apr}
-                onChange={handleInputChange}
-                className={styles.input}
-                />
-            </div>
+                <h1 className={styles.composeTitle}> Create Listing </h1>
+                <Form.Label>Title</Form.Label>
+                <InputGroup className={styles.inputGroup}>
+                    <Form.Control
+                        placeholder="Loan title"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        ref={titleRef}
+                        required
+                    />
+                </InputGroup>
 
-            <div className={styles.field}>
-                <label htmlFor="description">Description:</label>
-                <textarea
-                id="description"
-                name="description"
-                value={description}
-                onChange={handleInputChange}
-                className={styles.textarea}
-                />
-            </div>
 
-            <div className={styles.field}>
-                <label htmlFor="loanLength">Length of loan (in years):</label>
-                <input
-                type="number"
-                id="loanLength"
-                name="loanLength"
-                value={loanLength}
-                onChange={handleInputChange}
-                className={styles.input}
-                />
-            </div>
+                <Form.Label>Amount & Interest</Form.Label>
+                <div className={styles.doubleInput}>
 
-            <div className={styles.field}>
-                <label htmlFor="paymentFrequency">Payment frequency:</label>
-                <select
-                id="paymentFrequency"
-                name="paymentFrequency"
-                value={paymentFrequency}
-                onChange={handleInputChange}
-                className={styles.select}
-                >
-                <option value="weekly">Weekly</option>
-                <option value="biweekly">Bi-weekly</option>
-                <option value="monthly">Monthly</option>
-                </select>
-            </div>
+                    <InputGroup className={styles.inputGroup}>
+
+                        <Form.Control 
+                            id="basic-url"
+                            aria-describedby="basic-addon3"
+                            placeholder='Amount seeking' 
+                            ref={amountRef}
+                            type='number'
+                            step='0.01'
+                            min="0"
+                            max="1000000"
+                            required
+
+                        />
+                    </InputGroup>
+
+
+                    
+                    <InputGroup className={styles.inputGroup} id='end'>
+                        
+                        <Form.Control 
+                            id="basic-url"
+                            aria-describedby="basic-addon3"
+                            placeholder='Annual interest rate' 
+                            ref={interestRef}
+                            type='number'
+                            step='0.01'
+                            min="0.01"
+                            max="100"
+                            required
+                            
+                        />
+                    </InputGroup>
+
+
+                </div>
+
+                <Form.Label>Loan Length (Years)</Form.Label>
+                <div className={styles.doubleInput}>
+                    
+                    <InputGroup className={styles.inputGroup} id='single'>
+
+                        <Form.Control 
+                            id="basic-url"
+                            aria-describedby="basic-addon3"
+                            placeholder='Loan length' 
+                            ref={loanLengthRef}
+                            type='number'
+                            step="0.25"
+                            min="1"
+                            max="50"
+                            required
+                        />
+
+                    </InputGroup>
+
+
+
+
+                </div>
+
+
+
+                <Form.Label>Other information...   Why do you want/need this loan?</Form.Label>
+                <InputGroup className={styles.inputGroup}>
+                    
+                    <Form.Control
+                        as="textarea" 
+                        aria-label="With textarea"
+                        placeholder='Your message here...'
+                        ref={messageRef} 
+                        required
+                    />
+                </InputGroup>
+
+                <Button className={styles.emailButton} variant="primary" type="submit">
+                    Create Listing
+                </Button>
+
+                <Button className={styles.amortButton} onClick={toggleAmortTable} variant="primary">
+                    View Amortization Table
+                </Button>
+
+                {showAmort && 
+                
+                    <AmortizationTable
+                        amount={amountRef.current.value}
+                        interest_rate={interestRef.current.value}
+                        num_payments={loanLengthRef.current.value * 12}
+                        show_amort={showAmort}
+                        set_show_amort={setShowAmort}
+                    />
+                }   
+                
+
+            </Form>
+
+
+
+
             
-            <button type="submit" className={styles.submitButton}>Submit</button>
-        </form>
+        </div>
     );
 }
 

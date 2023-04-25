@@ -13,7 +13,7 @@ function Login() {
     const user = useUser();
     const supabase = useSupabaseClient();
 
-
+ 
     async function fetchAccountType() {
         console.log('fetching data...');
         const { data, error } = await supabase
