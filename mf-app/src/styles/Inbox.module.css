@@ -179,6 +179,7 @@
     flex-grow: 1;
     border-right: 1px solid #ccc;
     box-shadow: 0 0 15px #aaa;
+    background-color: snow
 }
 
 .middleColumn {
@@ -189,11 +190,13 @@
     border-right: 1px solid #ccc;
     box-shadow: 0 0 15px #aaa;
     padding-top: 10px;
+    background-color: snow
 }
 
 .rightColumn {
     height: 100%;
     flex-grow: 10;
+    background-color: snow
 }
 
 .mailMenu {
