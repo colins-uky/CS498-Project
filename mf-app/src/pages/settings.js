@@ -11,12 +11,11 @@ export default function SettingsPage() {
 
 
     return (
-        <div className={styles.settingsContainer}>
-            
-
-            <Settings />
-
-        </div>
         
+        <div className={styles.SettingsMain}>
+            <Settings />
+        </div>
+
+
     );
 }

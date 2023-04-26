@@ -27,7 +27,7 @@ export default function Tutorial() {
                 <div className={styles.border}/>
 
                 <div className={styles.outputContainer}>
-
+                    
                 </div>
 
 

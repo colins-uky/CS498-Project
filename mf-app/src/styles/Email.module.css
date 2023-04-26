@@ -51,7 +51,7 @@
 }
 
 .noSelection {
-    background-image: url("../../../Images/business_desk_background.jpg");
+    background-image: url("../../public/images/world_background.png");
     height: 100%;
     display: flex;
     justify-content: center;
