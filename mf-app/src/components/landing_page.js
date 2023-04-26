@@ -22,11 +22,6 @@ export default function LandingPage() {
                 <Tutorial />
             </div>
             
-            <div className={styles.infoContainer}>
-                <div className={styles.textContainer}>
-                    <h1> Hello World!</h1>
-                </div>
-            </div>
 
 
 

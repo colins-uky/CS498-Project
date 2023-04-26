@@ -137,7 +137,7 @@ export default function Settings() {
                                     <Form.Label>Username:</Form.Label>
                                     <Form.Control
                                         id="email"
-                                        placeholder={username}
+                                        value={username}
                                         type="text"
                                         onChange={(e) => setUsername(e.target.value)}
                                     />
@@ -170,7 +170,7 @@ export default function Settings() {
                                     <Form.Label>First Name:</Form.Label>
                                     <Form.Control
                                         id="email"
-                                        placeholder={first_name}
+                                        value={first_name}
                                         type="text"
                                         onChange={(e) => setFirstName(e.target.value)}
                                     />
@@ -185,7 +185,7 @@ export default function Settings() {
                                     <Form.Label>Last Name:</Form.Label>
                                     <Form.Control
                                         id="email"
-                                        placeholder={last_name}
+                                        value={last_name}
                                         type="text"
                                         onChange={(e) => setLastName(e.target.value)}
                                     />
@@ -200,8 +200,8 @@ export default function Settings() {
                                 <Form.Label>Phone number:</Form.Label>
                                 <Form.Control
                                     id="email"
-                                    placeholder={phone_number}
-                                    type="text"
+                                    value={phone_number}
+                                    type="number"
                                     onChange={(e) => setPhoneNum(e.target.value)}
                                 />
                             </div>

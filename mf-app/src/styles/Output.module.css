@@ -1,0 +1,28 @@
+
+
+.outputContainer {
+    background-color: #032445;
+    height: 100%;
+    width: 95%;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px #032445;
+}
+
+
+
+
+.textContainer {
+    margin-bottom: 2rem;
+    width: 65%;
+}
+
+.textContainer h3 {
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.textContainer p {
+    font-size: 18px;
+}
+
