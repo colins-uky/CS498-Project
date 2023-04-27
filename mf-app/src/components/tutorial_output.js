@@ -64,7 +64,7 @@ export default function turtorialOutput({ mode }) {
 
                     <div className={styles.textContainer}>
                         <h3>What We're About.</h3>
-                        <p>Here at ModernFunding we envision a world where small businesses don’t need to go to a bank to get funding for projects and startups, and individual investors have easy access to diversifying their portfolios as venture capitalists.</p>
+                        <p>Here at ModernFunding we envision a world where small businesses don't need to go to a bank to get funding for projects and startups, and individual investors have easy access to diversifying their portfolios as venture capitalists.</p>
                     </div>
 
                     <div className={styles.textContainer}>
