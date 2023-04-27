@@ -38,6 +38,7 @@ export function Email(props) {
                 <div className={styles.overlay}>
                     <h1>Select an item to read</h1>
                     <h4>Nothing is selected</h4>
+                    <h5>(Try sending an email to yourself.)</h5>
                 </div>
             </div>
         );
