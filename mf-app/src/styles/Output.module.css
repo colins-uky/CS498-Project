@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 .outputContainer {
     background-color: #032445;
@@ -7,6 +7,11 @@
     border-radius: 15px;
     padding: 10px;
     box-shadow: 2px 2px 5px #032445;
+    overflow: scroll;
+}
+
+.outputContainer::-webkit-scrollbar {
+    width: 8px;
 }
 
 
@@ -26,3 +31,68 @@
     font-size: 18px;
 }
 
+
+
+.tutorialContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+
+.tutorialModule {
+    width: 100%;
+    height: 33%;
+    background-color: #07529e;
+    border-radius: 20px;
+    margin: 5px 0;
+    padding: 10px 50px;
+    transition: transform 0.3s;
+    transform: scale(1);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 24px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+.tutorialModule:hover {
+    transform: scale(1.1);
+}
+
+.logo {
+    width: 64px;
+    filter: invert(100%) drop-shadow(0px 0px 20px var(--mainColor));
+    position: relative;
+    height: 64px;
+    cursor: pointer;
+    margin: 0 20px 10px 20px;
+}
+
+.logo:hover {
+    filter: sepia(100%) hue-rotate(120deg) saturate(900%) brightness(250%) drop-shadow(0px 0px 20px var(--secondaryColor));
+}
+
+.signUpBtn {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    width: 115px;
+
+    color: var(--textColor);
+    font-size: 18px;
+
+    box-shadow: 1px 1px 20px var(--mainColor);
+}
+
+.signUpBtn:hover {
+    background-color: var(--secondaryColor);
+    box-shadow: 1px 1px 30px var(--secondaryColor);
+    border: 1px solid var(--secondaryColor);
+}
+
+.faIcon {
+    margin: 0 5px 10px 5px;
+}

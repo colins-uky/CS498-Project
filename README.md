@@ -1,7 +1,4 @@
 # CS498-Project
-To Demo the prototype, Use whatever method of your choosing to host the files located in the /mf-app/out/ directory.
+This is a web application built and designed for the CS 498 course at the University of Kentucky.
 
-My way of choice is Visual Studio Codes' "Live Server" Extension with 32 Million downloads.
-
-
-Another way is to use apache web server.
+Our completed product is deployed on Vercel here: 

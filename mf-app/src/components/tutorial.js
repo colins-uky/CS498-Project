@@ -45,8 +45,8 @@ export default function Tutorial() {
                         <h3>Tutorial</h3>
                     </div>
 
-                    <div className={tutorialMode === "What is Modern Funding?" ? styles.rowItemA : styles.rowItem} onClick={() => {handleTutClick("What is Modern Funding?")}}>
-                        <h3>CS-498</h3>
+                    <div className={tutorialMode === "CS 498" ? styles.rowItemA : styles.rowItem} onClick={() => {handleTutClick("CS 498")}}>
+                        <h3>CS 498</h3>
                     </div>
 
                     
