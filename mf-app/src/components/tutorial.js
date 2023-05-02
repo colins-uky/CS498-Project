@@ -16,7 +16,7 @@ export default function Tutorial() {
     }
 
     useEffect(() => {
-        console.log(tutorialMode);
+        
     }, [tutorialMode])
 
     return (

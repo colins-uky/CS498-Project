@@ -34,12 +34,6 @@ function DashboardForm(props) {
 
         const numPayments = loanLengthRef.current.value * 12;
 
-        console.log('Title:', titleRef.current.value);
-        console.log('Amount:', amountRef.current.value);
-        console.log('Interest:', interestRef.current.value);
-        console.log('Num_Payments:', numPayments);
-        console.log('Message:', messageRef.current.value);
-        // You can do further processing with the form data here, such as sending an email
 
         
 

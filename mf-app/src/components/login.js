@@ -15,7 +15,6 @@ function Login() {
 
 
     async function fetchAccountType() {
-        console.log('fetching data...');
         const { data, error } = await supabase
             .from('profiles')
             .select('account_type')

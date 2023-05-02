@@ -94,9 +94,6 @@ export default function Settings() {
         }
     }
 
-    useEffect(() => {
-        console.log(account_type);
-    })
 
     if (user) {
         return (

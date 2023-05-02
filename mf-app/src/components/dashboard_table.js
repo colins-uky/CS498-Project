@@ -25,7 +25,6 @@ export default function DashboardTable(props) {
 
     
 
-    console.log(props);
     
     const [investments, setInvestments] = useState([]);
     const [showAmort, setShowAmort] = useState(false);
@@ -87,7 +86,6 @@ export default function DashboardTable(props) {
     }
 
     async function handleDeleteInvestment(investment) {
-        console.log(investment);
 
         const confirmDeletion = window.confirm('Are you sure you want to delete this listing?');
         if (!confirmDeletion) {

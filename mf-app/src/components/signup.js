@@ -17,9 +17,6 @@ function SignUp() {
     const user = useUser();
     const firstNameRef = useRef();
     const lastNameRef = useRef();
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const confirmPasswordRef = useRef();
     const usernameRef = useRef();
     const phoneRef = useRef();
     const dobRef = useRef();
@@ -33,20 +30,7 @@ function SignUp() {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        /*
-        console.log({
-            firstName: firstNameRef.current.value,
-            lastName: lastNameRef.current.value,
-            username: usernameRef.current.value,
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-            confirmPassword: confirmPasswordRef.current.value,
-            phoneNum: phoneRef.current.value,
-            DOB: dobRef.current.value,
-            accountType: accountTypeRef.current.value
-
-        });
-        */
+       
       
         const { error2 } = await supabase
             .from('profiles')

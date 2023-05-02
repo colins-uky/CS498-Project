@@ -24,7 +24,6 @@ function MailTable(props) {
 
 
     async function handleDeleteMail(email) {
-        console.log(email);
 
 
         const confirmDeletion = window.confirm('Are you sure you want to delete this email?');
@@ -89,7 +88,6 @@ function MailTable(props) {
                     return;
                 }
                 
-                console.log(mail)
 
                 mail.forEach(item => {
                     let date = new Date(item["time_sent"])

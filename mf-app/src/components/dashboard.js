@@ -51,7 +51,6 @@ function DashboardModule() {
         if (error) {
             console.log(error);
         }
-        console.log(data);
         setUserInfo(data);
     }
 

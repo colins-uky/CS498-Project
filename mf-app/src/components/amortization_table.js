@@ -18,7 +18,6 @@ function AmortizationTable(props) {
     const [totals, setTotals] = useState(0);
 
 
-    console.log(props);
 
     const [open, setOpen] = useState(false);
 
@@ -125,12 +124,9 @@ function AmortizationTable(props) {
     useEffect(() => {
         let [newRows, totals] = returnTableRows();
 
-        console.log(newRows);
-        console.log(totals)
         setRows(newRows);
         setTotals(totals);
 
-        console.log(props);
     }, [props]);
 
 

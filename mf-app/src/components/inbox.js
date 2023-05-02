@@ -53,7 +53,6 @@ function Inbox() {
     }
 
     const handleDataFromChild = (data) => {
-        console.log(data);
         setMailData(data);
     }
 

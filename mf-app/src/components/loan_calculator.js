@@ -34,11 +34,6 @@ export default function LoanCalculator() {
             return;
         }
 
-        // Perform calculations or any other logic here
-        console.log(`Amount Seeking: ${amountSeeking}`);
-        console.log(`APR: ${apr}`);
-        console.log(`Loan Length (in years): ${loanLengthInYears}`);
-
         setShowAmort(true);
     };
 

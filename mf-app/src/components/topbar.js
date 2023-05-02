@@ -63,7 +63,6 @@ export default function Topbar({ pageTitle }) {
         if (userInfo !== null || !user) {
             return;
         }
-        console.log(user);
         getUserInfo();
     }, [user])
 
@@ -71,8 +70,6 @@ export default function Topbar({ pageTitle }) {
         if (user === null || userInfo == null) {
             return;
         } 
-        console.log('User Info :');
-        console.log(userInfo);
         setPersonalizedPage(userInfo);
     }, [userInfo])
 
